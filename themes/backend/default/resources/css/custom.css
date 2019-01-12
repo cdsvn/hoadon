@@ -1,0 +1,565 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: 17px;
+    font-family: 'Arsenal Regular';
+    color: #444;
+}
+select, select option {
+    font-family: 'Arsenal Regular';
+    font-size: 15px;
+}
+.clearfix:before,.clearfix:after {
+    content: " ";
+    display: table;
+}
+.clearfix:after {
+    clear: both;
+}
+.text-center {
+    text-align: center !important;
+}
+.img-full {
+    max-width: 100%;
+    max-height: 100%;
+}
+.img-wfull {
+    max-width: 100%;
+}
+.img-hfull {
+    max-height: 100%;
+}
+.img_grid {
+    max-width: 100%;
+    max-height: 60px;
+}
+
+/*
+Css column left
+*/
+.uil {
+    width: 270px;
+    height: 100%;
+    background: yellow;
+    position: relative;
+    -webkit-transition: width 0.5s;
+    transition: width 0.5s;
+    background: #edeff1;
+    border: none;
+    overflow: hidden;
+}
+
+.uil_top {
+    height: 42px;
+    background: #009cd7;
+}
+
+.uil_top .logo {
+    float: left;
+    height: 100%;
+    display: table;
+}
+
+.uil_top .logo a{
+
+    display: table-cell;
+
+    vertical-align: middle;
+
+}
+
+.uil_top .logo a img{
+
+    max-height: 38px;
+
+    padding: 0px 10px;
+
+}
+
+.uil_top .company {
+
+    display: table-cell;
+
+    vertical-align: middle;
+
+    font-size: 19px;
+
+    text-transform: uppercase;
+
+    white-space: nowrap;
+
+    color: #fff;
+
+}
+
+/* Sidebar menu left */
+
+.uil_body {
+
+    background: #222D32;
+
+    height: 80%;
+
+}
+
+.cd-accordion-menu {
+
+    max-width: 100%;
+
+    background: #4d5158;
+
+}
+
+.cd-accordion-menu ul {
+
+    display: none;
+
+}
+
+.cd-accordion-menu li {
+
+    -webkit-user-select: none;
+
+    -moz-user-select: none;
+
+    -ms-user-select: none;
+
+    user-select: none;
+
+}
+
+.cd-accordion-menu input[type=checkbox] {
+
+    position: absolute;
+
+    opacity: 0;
+
+}
+
+.cd-accordion-menu label, .cd-accordion-menu a {
+
+    position: relative;
+
+    display: block;
+
+    padding: 10px 10px 10px 15px;
+
+    background: #4d5158;
+
+    box-shadow: inset 0 -1px #555960;
+
+    color: #ffffff;
+
+    font-size: 15px;
+
+    overflow-x: hidden;
+
+    white-space: nowrap;
+
+}
+
+.no-touch .cd-accordion-menu label:hover, .no-touch .cd-accordion-menu a:hover {
+
+    background: #52565d;
+
+}
+
+.cd-accordion-menu label::before, .cd-accordion-menu label::after, .cd-accordion-menu a::after {
+
+    content: '';
+
+    display: inline-block;
+
+    width: 16px;
+
+    height: 16px;
+
+    position: absolute;
+
+    top: 50%;
+
+    -webkit-transform: translateY(-50%);
+
+    -moz-transform: translateY(-50%);
+
+    -ms-transform: translateY(-50%);
+
+    -o-transform: translateY(-50%);
+
+    transform: translateY(-50%);
+
+}
+
+.cd-accordion-menu label {
+
+    cursor: pointer;
+
+}
+
+.cd-accordion-menu label::before, .cd-accordion-menu label::after {
+
+    background-image: url(../images/arrow-29-16.gif);
+
+    background-repeat: no-repeat;
+
+}
+
+.cd-accordion-menu label::before {
+
+    left: 245px;
+
+    background-position: 0 0;
+
+    -webkit-transform: translateY(-50%) rotate(-90deg);
+
+    -moz-transform: translateY(-50%) rotate(-90deg);
+
+    -ms-transform: translateY(-50%) rotate(-90deg);
+
+    -o-transform: translateY(-50%) rotate(-90deg);
+
+    transform: translateY(-50%) rotate(-90deg);
+
+}
+
+.cd-accordion-menu label::after {
+
+    left: 41px;
+
+    background-position: -16px 0;
+
+}
+
+.cd-accordion-menu a::after {
+
+    left: 25px;
+
+    background: url(../images/arrow-29-16.gif) no-repeat -48px 0;
+
+}
+
+.cd-accordion-menu input[type=checkbox]:checked + label::before {
+
+    -webkit-transform: translateY(-50%);
+
+    -moz-transform: translateY(-50%);
+
+    -ms-transform: translateY(-50%);
+
+    -o-transform: translateY(-50%);
+
+    transform: translateY(-50%);
+
+}
+
+.cd-accordion-menu input[type=checkbox]:checked + label::after {
+
+    background-position: -32px 0;
+
+}
+
+.cd-accordion-menu input[type=checkbox]:checked + label + ul,
+
+.cd-accordion-menu input[type=checkbox]:checked + label:nth-of-type(n) + ul {
+
+    display: block;
+
+}
+
+.cd-accordion-menu ul label,.cd-accordion-menu ul a {
+
+    background: #35383d;
+
+    box-shadow: inset 0 -1px #41444a;
+
+    padding-left: 40px;
+
+    text-decoration: none;
+
+    overflow-x: hidden;
+
+    white-space: nowrap;
+
+}
+
+.no-touch .cd-accordion-menu ul label:hover, .no-touch .cd-accordion-menu ul a:hover {
+
+    background: #3c3f45;
+
+}
+
+.cd-accordion-menu > li:last-of-type > label, .cd-accordion-menu > li:last-of-type > a,
+
+.cd-accordion-menu > li > ul > li:last-of-type label, .cd-accordion-menu > li > ul > li:last-of-type a {
+
+    box-shadow: none;
+
+}
+
+.cd-accordion-menu ul label::before {
+
+    left: 245px;
+
+}
+
+.cd-accordion-menu ul ul label, .cd-accordion-menu ul ul a {
+
+    padding-left: 70px;
+
+}
+
+.cd-accordion-menu ul ul ul label, .cd-accordion-menu ul ul ul a {
+
+    padding-left: 70px;
+
+}
+
+.cd-accordion-menu.animated label::before {
+
+    /* this class is used if you're using jquery to animate the accordion */
+
+    -webkit-transition: -webkit-transform 0.3s;
+
+    -moz-transition: -moz-transform 0.3s;
+
+    transition: transform 0.3s;
+
+}
+
+.txt-sidebar{
+
+    opacity: 1;
+
+    display: inline-block;
+
+    position: absolute;
+
+    top: 10px;
+
+    padding-left: 5px;
+
+    font-size: 17px;
+
+}
+
+.txt-sidebar a {
+
+    display: inline;
+
+    padding: 0 !important;
+
+    text-decoration: none;
+
+    box-shadow: none !important;
+
+}
+
+/* Bottom left column */
+
+.uil_bottom {
+
+    position: absolute;
+
+    bottom: 0;
+
+    width: 100%;
+
+    background: #009cd7;
+
+    color: #fff;
+
+    padding: 3px 5px;
+
+}
+
+/*
+
+Css Column right
+
+*/
+
+.uir {
+
+    left: 270px;
+
+    height: 100%;
+
+    float: right;
+
+    position: absolute;
+
+    right:0;
+
+    top:0;
+
+    border: none;
+
+    -webkit-transition: left 0.5s;
+
+    transition: left 0.5s;
+
+}
+
+/* Top right*/
+
+.uir_top {
+
+    height: 42px;
+
+    background: #009cd7;
+
+}
+
+#toggle_ui {
+
+    padding-top: 12px;
+
+    cursor: pointer;
+
+}
+
+.close_left {
+
+    width: 45px !important;
+
+}
+
+.open_right {
+
+    left: 45px !important;
+
+}
+
+ul.menu_person {
+
+    height: 100%;
+
+}
+
+ul.menu_person li {
+
+    display: inline-block;
+
+    height: 100%;
+
+    position: relative;
+
+}
+
+ul.menu_person li a {
+
+    display: inline-block;
+
+    vertical-align: middle;
+
+    text-decoration: none;
+
+    padding-left: 15px;
+
+    padding-right: 15px;
+
+    color: #fff;
+
+}
+
+ul.menu_person li:before{
+
+    content: '';
+
+    display: inline-block;
+
+    vertical-align: middle;
+
+    height: 100%;
+
+}
+
+ul.menu_person li:hover {
+
+    background: #fff;
+
+    color: #009cd7;
+
+}
+
+ul.menu_person li ul.dropdown{
+
+    min-width: 100%;
+
+    background: #fff;
+
+    display: none;
+
+    position: absolute;
+
+    z-index: 999;
+
+    right: 0;
+
+}
+
+ul.menu_person li:hover a{
+
+    color: #009cd7;
+
+}
+
+ul li:hover ul.dropdown{
+
+    display: block;
+
+}
+
+ul li:hover ul.dropdown li{
+
+ white-space: nowrap;
+
+ display: block;
+
+ border-bottom: 1px solid #edeff1;
+
+ padding: 12px 0px;
+
+}
+
+ul.dropdown li:hover{
+
+ background: #edeff1;
+
+}
+
+/* Body right */
+
+.uir_body {
+
+    position: relative;
+
+    height: 90%;
+
+    padding: 10px;
+
+    background: #ecf0f5;
+
+}
+
+/* Bottom right */
+
+.uir_bottom {
+
+    position: absolute;
+
+    bottom: 0;
+
+    width: 100%;
+
+    background: #009cd7;
+
+    padding: 3px 5px;
+
+    color: #fff;
+
+    text-align: right;
+
+}
