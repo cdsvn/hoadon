@@ -59,4 +59,41 @@ class Lookupinvoice extends MX_Controller {
         $this->site->render();
     }
 
+    function downloadinvoice() {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_PORT => "8443",
+            CURLOPT_URL => "https://demo-sinvoice.viettel.vn:8443/InvoiceAPI/InvoiceUtilsWS/getInvoiceRepresentationFile",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n<commonDataInput>\r\n\t<supplierTaxCode>0100109106-997</supplierTaxCode>\r\n\t<invoiceNo>AL/18E0000136</invoiceNo >\r\n\t<pattern>01GTKT0/001</pattern >\r\n\t<transactionUuid >ZIP</transactionUuid >\r\n\t<fileType>pdf</fileType>\r\n</commonDataInput>",
+            CURLOPT_HTTPHEADER => array(
+                "accept: application/json",
+                "authorization: Basic MDEwMDEwOTEwNi05OTc6MTExMTExYUBB",
+                "cache-control: no-cache",
+                "content-type: application/xml",
+                "postman-token: 890976d5-e6d8-ac47-49d3-6e59e6a3851d"
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+            echo "cURL Error #:" . $err;
+        } else {
+            $rs = json_decode($response, true);
+            file_put_contents('a.pdf', base64_decode($rs['fileToBytes']));
+            header('Content-Type: application/pdf');
+            echo file_get_contents('a.pdf');
+        }
+    }
+
 }

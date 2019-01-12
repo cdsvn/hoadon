@@ -28,4 +28,10 @@
         </table>
     </div>
 </div>
-
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(document.body).on('click', '.ipdf', function () {
+            window.location = "<?= site_url('lookupinvoice/downloadinvoice') ?>";
+        });
+    });
+</script>
