@@ -20,27 +20,45 @@ class Lookupinvoice extends MX_Controller {
 
     function _view() {
         $data = new stdClass();
-        $mst = $this->uri->segment(2);
-        $mbm = $this->uri->segment(3);
+        $supplierTaxCode = $this->uri->segment(3); // ma so thue
+        $secureSupplierTaxCode = $this->uri->segment(4); // ma bi mat
+
+        if(empty($supplierTaxCode) || empty($secureSupplierTaxCode )) {
+            die("INVALID PARAMS 1");
+        } else {
+            // Check supplierTaxCode va secureSupplierTaxCode xem hop le khong
+            $stmp = md5("1234qwer".$supplierTaxCode."0987@@@");
+            if($stmp != $secureSupplierTaxCode) {
+                die("INVALID PARAMS 2". $stmp);
+            }
+        }
+
+        $arr_post = array(
+            'startDate'=>'2017-12-12T10:14:32.611+07:00',
+            'endDate'=>'2017-12-31T10:14:32.611+07:00',
+            'invoiceType'=>'02GTTT',
+            'rowPerPage'=>20,
+            'pageNum'=>'1',
+            'templateCode'=> null
+        );
 
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
             CURLOPT_PORT => "8443",
-            CURLOPT_URL => "https://demo-sinvoice.viettel.vn:8443/InvoiceAPI/InvoiceUtilsWS/getInvoices/0100109106-997",
+            CURLOPT_URL => "https://demo-sinvoice.viettel.vn:8443/InvoiceAPI/InvoiceUtilsWS/getInvoices/".$supplierTaxCode,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
             CURLOPT_TIMEOUT => 30,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => "{\r\n  \"startDate\" : \"2017-12-12T10:14:32.611+07:00\",\r\n  \"endDate\" : \"2017-12-31T10:14:32.611+07:00\",\r\n  \"invoiceType\" : \"02GTTT\",\r\n  \"rowPerPage\" : 20,\r\n  \"pageNum\" : 1,\r\n  \"templateCode\" : null\r\n}",
+            CURLOPT_POSTFIELDS => json_encode($arr_post),
             CURLOPT_HTTPHEADER => array(
                 "accept: application/json",
                 "authorization: Basic MDEwMDEwOTEwNi05OTc6MTExMTExYUBB",
                 "cache-control: no-cache",
-                "content-type: application/json",
-                "postman-token: 3510cabb-462f-76ae-2e03-9ed76823c3c0"
+                "content-type: application/json"
             ),
         ));
 
@@ -59,9 +77,43 @@ class Lookupinvoice extends MX_Controller {
         $this->site->render();
     }
 
-    function downloadinvoice() {
-        $curl = curl_init();
+    function getinvoice() {
+        // get tu session
+        $supplierTaxCode = '0100109106-997';
+        // nhan tu UI post
+        $iid = $this->input->post('iid');
+        $ino = $this->input->post('ino');
+        $itc = $this->input->post('itc');
+        $itype = $this->input->post('itype');
+        $itype = ($itype=="view"?"pdf":$itype);
+        $rs = $this->getInvoiceCurl($itype, $supplierTaxCode, $ino, $itc);
+        $rt = array("status"=>"fail", "reason"=>"curl fail");
+        if(is_array($rs)) {
+            $cf = $this->createFile($iid, $ino, $itype, $rs);
+            if($cf == "1") {
+                $rt['file'] = $iid;
+                $rt['status'] = "success";
+                $rt['reason'] = "";
+            } else {
+                $rt['status'] = "fail";
+                $rt['reason'] = "Can not create file";
+            }
+        } else {
+            $rt['status'] = "fail";
+            $rt['reason'] = $rs;
+        }
+        echo json_encode($rt);
+    }
 
+    private function getInvoiceCurl($fileType = 'pdf', $supplierTaxCode = '0100109106-997', $invoiceNo = 'AL/18E0000136', $pattern = '01GTKT0/001') {
+        $arr_post = array(
+            'supplierTaxCode'=>$supplierTaxCode,
+            'invoiceNo'=>$invoiceNo,
+            'pattern'=>$pattern,
+            'transactionUuid'=>"test",
+            'fileType'=>strtoupper($fileType)
+        );
+        $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_PORT => "8443",
             CURLOPT_URL => "https://demo-sinvoice.viettel.vn:8443/InvoiceAPI/InvoiceUtilsWS/getInvoiceRepresentationFile",
@@ -71,29 +123,62 @@ class Lookupinvoice extends MX_Controller {
             CURLOPT_TIMEOUT => 30,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n<commonDataInput>\r\n\t<supplierTaxCode>0100109106-997</supplierTaxCode>\r\n\t<invoiceNo>AL/18E0000136</invoiceNo >\r\n\t<pattern>01GTKT0/001</pattern >\r\n\t<transactionUuid >ZIP</transactionUuid >\r\n\t<fileType>pdf</fileType>\r\n</commonDataInput>",
+            CURLOPT_POSTFIELDS => json_encode($arr_post),
             CURLOPT_HTTPHEADER => array(
                 "accept: application/json",
                 "authorization: Basic MDEwMDEwOTEwNi05OTc6MTExMTExYUBB",
                 "cache-control: no-cache",
-                "content-type: application/xml",
-                "postman-token: 890976d5-e6d8-ac47-49d3-6e59e6a3851d"
+                "content-type: application/json"
             ),
         ));
-
         $response = curl_exec($curl);
         $err = curl_error($curl);
-
         curl_close($curl);
-
         if ($err) {
-            echo "cURL Error #:" . $err;
+            return "cURL Error #:" . $err;
         } else {
-            $rs = json_decode($response, true);
-            file_put_contents('a.pdf', base64_decode($rs['fileToBytes']));
-            header('Content-Type: application/pdf');
-            echo file_get_contents('a.pdf');
+            return json_decode($response, true);
         }
+    }
+
+    function createFile($iid, $ino, $itype, $rs) {
+        if($itype == 'pdf' || $itype == 'view') {
+            $ifile = FCPATH."/files/pdf/".$iid.".pdf";
+        } else if($itype == 'zip') {
+            $ifile = FCPATH."/files/zip/".$iid.".zip";
+        }
+        file_put_contents($ifile, base64_decode($rs['fileToBytes']));
+        return '1';
+    }
+
+    function pdf() {
+        $name = $this->uri->segment(3);
+        $filename = FCPATH."/files/pdf/".$name.".pdf";
+        $fileinfo = pathinfo($filename);
+        $sendname = $fileinfo['filename'] . '.' . strtolower($fileinfo['extension']);
+        header('Content-Type: application/pdf');
+        header("Content-Disposition: attachment; filename=\"$sendname\"");
+        header('Content-Length: ' . filesize($filename));
+        readfile($filename);
+        exit;
+    }
+    function zip() {
+        $name = $this->uri->segment(3);
+        $filename = FCPATH."/files/zip/".$name.".zip";
+        $fileinfo = pathinfo($filename);
+        $sendname = $fileinfo['filename'] . '.' . strtolower($fileinfo['extension']);
+        header('Content-Type: application/zip');
+        header("Content-Disposition: attachment; filename=\"$sendname\"");
+        header('Content-Length: ' . filesize($filename));
+        readfile($filename);
+        exit;
+    }
+    function detail() {
+        $name = $this->uri->segment(3);
+        $filename = FCPATH."/files/pdf/".$name.".pdf";
+        header('Content-Type: application/pdf');
+        readfile($filename);
+        exit;
     }
 
 }
