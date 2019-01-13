@@ -1,3 +1,42 @@
+<form class="form-horizontal">
+    <div class="container">
+        <div class="row">
+            <div class="form-group form-group-sm col-sm-6">
+                <div class="row">
+                    <label for="first_name" class="col-sm-3 col-form-label">First Name</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="first_name" name="first_name">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-group-sm col-sm-6">
+                <div class="row">
+                    <label for="last_name" class="col-sm-3 col-form-label">Last Name</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="last_name" name="last_name">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-group-sm col-sm-6">
+                <div class="row">
+                    <label for="Street" class="col-sm-3 col-form-label">Street</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="Street" name="Street">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-group-sm col-sm-6">
+                <div class="row">
+                    <label for="City" class="col-sm-3 col-form-label">City</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="City" name="City">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
 <div class="row">
     <div class="col-md-12" style="overflow: auto;">
         <table class="table table-bordered">
