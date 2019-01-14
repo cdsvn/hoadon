@@ -83,6 +83,13 @@ class Lookupinvoice extends MX_Controller {
         }
 
         //echo '<pre>'; print_r($searchs); print_r($arr_post); die;
+        //echo $this->supplierTaxCode; die;
+
+        if($this->supplierTaxCode=='0311114017') {
+            $up = base64_encode('0311114017:Test@123456');
+        } else if($this->supplierTaxCode=='0311114017') {
+            $up = base64_encode('0100109106-997:111111a@A');
+        }
 
         $curl = curl_init();
         curl_setopt_array($curl, array(
@@ -97,7 +104,7 @@ class Lookupinvoice extends MX_Controller {
             CURLOPT_POSTFIELDS => json_encode($arr_post),
             CURLOPT_HTTPHEADER => array(
                 "accept: application/json",
-                "authorization: Basic MDEwMDEwOTEwNi05OTc6MTExMTExYUBB",
+                "authorization: Basic $up",
                 "cache-control: no-cache",
                 "content-type: application/json"
             ),
