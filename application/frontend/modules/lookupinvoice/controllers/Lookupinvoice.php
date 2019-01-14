@@ -37,7 +37,7 @@ class Lookupinvoice extends MX_Controller {
             // http://localhost/hoadon/lookupinvoice/0100109106-997/1bf747e840356a789ce270b04bad1d83.html
             $stmp = md5("1234qwer" . $supplierTaxCode . "0987@@@");
             if ($stmp != $secureSupplierTaxCode) {
-                die("INVALID PARAMS 2" . $stmp);
+                die("INVALID PARAMS 2: " . $stmp);
             }
         }
         // Chưa set rowInPage thi set
@@ -139,7 +139,7 @@ class Lookupinvoice extends MX_Controller {
             $rs['pagination'] = $links;
         } else {
             // Lỗi CURL
-            $data->description = (is_array($rsData) ? $rsData['description'] : 'Service busy, Please try again in a few seconds (' . $rsData . ').');
+            $data->description = (is_array($rsData) ? ($rsData['errorCode'] . ": " . $rsData['description']) : 'Service busy, Please try again in a few seconds (' . $rsData . ').');
             $content = $this->load->view('busy', $data, true);
             $rs['grid'] = $content;
         }
