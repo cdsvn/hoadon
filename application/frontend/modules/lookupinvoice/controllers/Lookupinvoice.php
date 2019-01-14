@@ -4,11 +4,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Lookupinvoice extends MX_Controller {
 
+    private $rowInPage = 5;
+    private $supplierTaxCode = '';
+
     function __construct() {
         parent::__construct();
         $this->site->write('title', "Nguyen Tat Huy");
         $this->load->model('lookupinvoice/Lookupinvoice_model');
         $this->load->language('lookupinvoice');
+        $this->load->library('pagination');
+        $this->supplierTaxCode = $this->session->userdata('supplierTaxCode');
+        $this->rowInPage = $this->session->userdata('rowInPage');
     }
 
     function _remap($method, $params = array()) {
@@ -20,33 +26,68 @@ class Lookupinvoice extends MX_Controller {
 
     function _view() {
         $data = new stdClass();
-        $supplierTaxCode = $this->uri->segment(3); // ma so thue
-        $secureSupplierTaxCode = $this->uri->segment(4); // ma bi mat
-
-        if(empty($supplierTaxCode) || empty($secureSupplierTaxCode )) {
+        $supplierTaxCode = $this->uri->segment(2); // ma so thue
+        $secureSupplierTaxCode = $this->uri->segment(3); // ma bi mat
+        if (empty($supplierTaxCode) || empty($secureSupplierTaxCode)) {
+            $this->session->unset_userdata('supplierTaxCode');
             die("INVALID PARAMS 1");
         } else {
+            $this->session->unset_userdata('supplierTaxCode');
             // Check supplierTaxCode va secureSupplierTaxCode xem hop le khong
-            $stmp = md5("1234qwer".$supplierTaxCode."0987@@@");
-            if($stmp != $secureSupplierTaxCode) {
-                die("INVALID PARAMS 2". $stmp);
+            // http://localhost/hoadon/lookupinvoice/0100109106-997/1bf747e840356a789ce270b04bad1d83.html
+            $stmp = md5("1234qwer" . $supplierTaxCode . "0987@@@");
+            if ($stmp != $secureSupplierTaxCode) {
+                die("INVALID PARAMS 2" . $stmp);
             }
         }
+        // Chưa set rowInPage thi set
+        if (!$this->session->has_userdata('rowInPage')) {
+            $this->session->set_userdata('rowInPage', 5);
+        }
+        $this->session->set_userdata('supplierTaxCode', $supplierTaxCode);
+        $data->rowInPage = $this->rowInPage;
+        $content = $this->load->view('view', $data, true);
+        $this->site->write('content', $content, true);
+        $this->site->render();
+    }
 
+    private function getListInvoice($rowPerPage = 5, $pageNum = '1', $searchs = array()) {
         $arr_post = array(
-            'startDate'=>'2017-12-12T10:14:32.611+07:00',
-            'endDate'=>'2017-12-31T10:14:32.611+07:00',
-            'invoiceType'=>'02GTTT',
-            'rowPerPage'=>20,
-            'pageNum'=>'1',
-            'templateCode'=> null
+            'startDate' => '2017-12-12',
+            'endDate' => '2017-12-31',
+            'rowPerPage' => $rowPerPage,
+            'pageNum' => $pageNum
         );
 
-        $curl = curl_init();
+        if (!empty($searchs['invoiceno'])) {
+            $arr_post['invoiceNo'] = $searchs['invoiceno'];
+        }
+        if (!empty($searchs['invoicetype'])) {
+            $arr_post['invoiceType'] = $searchs['invoicetype'];
+        }
+        if (!empty($searchs['startdate'])) {
 
+            $arr_post['startDate'] = date('Y-m-d', strtotime($searchs['startdate']));
+        }
+        if (!empty($searchs['enddate'])) {
+            $arr_post['endDate'] = date('Y-m-d', strtotime($searchs['enddate']));
+        }
+        if (!empty($searchs['buyertaxcode'])) {
+            $arr_post['buyerTaxCode'] = $searchs['buyertaxcode'];
+        }
+        if (!empty($searchs['templatecode'])) {
+            $arr_post['templateCode'] = $searchs['templatecode'];
+        }
+        if (!empty($searchs['invoiceseri'])) {
+            $arr_post['invoiceSeri'] = $searchs['invoiceseri'];
+        }
+
+        //echo '<pre>'; print_r($searchs); print_r($arr_post); die;
+
+        $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_PORT => "8443",
-            CURLOPT_URL => "https://demo-sinvoice.viettel.vn:8443/InvoiceAPI/InvoiceUtilsWS/getInvoices/".$supplierTaxCode,
+            CURLOPT_URL => "https://demo-sinvoice.viettel.vn:8443/InvoiceAPI/InvoiceUtilsWS/getInvoices/" . $this->supplierTaxCode,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
@@ -61,36 +102,66 @@ class Lookupinvoice extends MX_Controller {
                 "content-type: application/json"
             ),
         ));
-
         $response = curl_exec($curl);
         $err = curl_error($curl);
-
         curl_close($curl);
-
         if ($err) {
-            echo "cURL Error #:" . $err;
+            $rs = "cURL Error #:" . $err;
         } else {
-            $data->rs = json_decode($response, true);
+            $rs = json_decode($response, true);
         }
-        $content = $this->load->view('view', $data, true);
-        $this->site->write('content', $content, true);
-        $this->site->render();
+        // echo '<pre>'; print_r($rs); die;
+        return $rs;
+    }
+
+    function grid() {
+        $data = new stdClass();
+        $page = $this->input->post('page');
+        $searchs = json_decode($this->input->post('filter'), true);
+        $rsData = $this->getListInvoice($this->rowInPage, $page, $searchs);
+        // Có kết quả trả về
+        if (is_array($rsData) && empty($rsData['errorCode'])) {
+            $limit = $this->rowInPage;
+            $config = $this->Admin_model->config_pagination(site_url() . 'lookupinvoice', $rsData['totalRow'], $limit, $page);
+            $this->pagination->initialize($config);
+            $links = $this->pagination->create_links();
+            $data->rows = $rsData['invoices'];
+            $data->pagination = $links . $rsData['totalRow'];
+            $data->totalrow = $rsData['totalRow'];
+            $content = $this->load->view('list', $data, true);
+            $rs['totalRow'] = $rsData['totalRow'];
+            $rs['from'] = (($page - 1) * $this->rowInPage) + 1;
+            $rs['to'] = ($page * $this->rowInPage);
+            $rs['to'] = ($rs['to'] > $rs['totalRow'] ? $rs['totalRow'] : $rs['to']);
+            $rs['page'] = $page;
+            $rs['pages'] = ($rs['totalRow'] % $this->rowInPage == 0 ? $rs['totalRow'] / $this->rowInPage : ( (int) ($rs['totalRow'] / $this->rowInPage) + 1));
+            $rs['grid'] = $content;
+            $rs['pagination'] = $links;
+        } else {
+            // Lỗi CURL
+            $data->description = (is_array($rsData) ? $rsData['description'] : 'Service busy, Please try again in a few seconds (' . $rsData . ').');
+            $content = $this->load->view('busy', $data, true);
+            $rs['grid'] = $content;
+        }
+        echo json_encode($rs);
     }
 
     function getinvoice() {
         // get tu session
-        $supplierTaxCode = '0100109106-997';
+        $supplierTaxCode = $this->supplierTaxCode;
         // nhan tu UI post
         $iid = $this->input->post('iid');
         $ino = $this->input->post('ino');
         $itc = $this->input->post('itc');
         $itype = $this->input->post('itype');
-        $itype = ($itype=="view"?"pdf":$itype);
+        if ($itype == "view") {
+            $itype = "pdf";
+        }
         $rs = $this->getInvoiceCurl($itype, $supplierTaxCode, $ino, $itc);
-        $rt = array("status"=>"fail", "reason"=>"curl fail");
-        if(is_array($rs)) {
+        $rt = array("status" => "fail", "reason" => "curl fail");
+        if (is_array($rs)) {
             $cf = $this->createFile($iid, $ino, $itype, $rs);
-            if($cf == "1") {
+            if ($cf == "1") {
                 $rt['file'] = $iid;
                 $rt['status'] = "success";
                 $rt['reason'] = "";
@@ -107,11 +178,11 @@ class Lookupinvoice extends MX_Controller {
 
     private function getInvoiceCurl($fileType = 'pdf', $supplierTaxCode = '0100109106-997', $invoiceNo = 'AL/18E0000136', $pattern = '01GTKT0/001') {
         $arr_post = array(
-            'supplierTaxCode'=>$supplierTaxCode,
-            'invoiceNo'=>$invoiceNo,
-            'pattern'=>$pattern,
-            'transactionUuid'=>"test",
-            'fileType'=>strtoupper($fileType)
+            'supplierTaxCode' => $supplierTaxCode,
+            'invoiceNo' => $invoiceNo,
+            'pattern' => $pattern,
+            'transactionUuid' => "test",
+            'fileType' => strtoupper($fileType)
         );
         $curl = curl_init();
         curl_setopt_array($curl, array(
@@ -142,10 +213,10 @@ class Lookupinvoice extends MX_Controller {
     }
 
     function createFile($iid, $ino, $itype, $rs) {
-        if($itype == 'pdf' || $itype == 'view') {
-            $ifile = FCPATH."/files/pdf/".$iid.".pdf";
-        } else if($itype == 'zip') {
-            $ifile = FCPATH."/files/zip/".$iid.".zip";
+        if ($itype == 'pdf' || $itype == 'view') {
+            $ifile = FCPATH . "/files/pdf/" . $iid . ".pdf";
+        } else if ($itype == 'zip') {
+            $ifile = FCPATH . "/files/zip/" . $iid . ".zip";
         }
         file_put_contents($ifile, base64_decode($rs['fileToBytes']));
         return '1';
@@ -153,7 +224,7 @@ class Lookupinvoice extends MX_Controller {
 
     function pdf() {
         $name = $this->uri->segment(3);
-        $filename = FCPATH."/files/pdf/".$name.".pdf";
+        $filename = FCPATH . "/files/pdf/" . $name . ".pdf";
         $fileinfo = pathinfo($filename);
         $sendname = $fileinfo['filename'] . '.' . strtolower($fileinfo['extension']);
         header('Content-Type: application/pdf');
@@ -162,9 +233,10 @@ class Lookupinvoice extends MX_Controller {
         readfile($filename);
         exit;
     }
+
     function zip() {
         $name = $this->uri->segment(3);
-        $filename = FCPATH."/files/zip/".$name.".zip";
+        $filename = FCPATH . "/files/zip/" . $name . ".zip";
         $fileinfo = pathinfo($filename);
         $sendname = $fileinfo['filename'] . '.' . strtolower($fileinfo['extension']);
         header('Content-Type: application/zip');
@@ -173,12 +245,18 @@ class Lookupinvoice extends MX_Controller {
         readfile($filename);
         exit;
     }
+
     function detail() {
         $name = $this->uri->segment(3);
-        $filename = FCPATH."/files/pdf/".$name.".pdf";
+        $filename = FCPATH . "/files/pdf/" . $name . ".pdf";
         header('Content-Type: application/pdf');
         readfile($filename);
         exit;
+    }
+
+    function setrowinpage() {
+        $rip = $this->input->post('rip');
+        $this->session->set_userdata('rowInPage', $rip);
     }
 
 }
