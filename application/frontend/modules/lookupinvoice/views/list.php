@@ -1,9 +1,15 @@
 <?php
 foreach ($rows as $iv) {
     echo "<tr>";
-    echo '<td class="text-center"><span class="ipdf" itc="' . $iv['templateCode'] . '" ino="' . $iv['invoiceNo'] . '" iid="' . $iv['invoiceId'] . '">pdf</span> | <span class="izip" itc="' . $iv['templateCode'] . '" ino="' . $iv['invoiceNo'] . '" iid="' . $iv['invoiceId'] . '">zip</span></td>';
-    echo '<td class="text-center"><span class="viewpdf" itc="' . $iv['templateCode'] . '" ino="' . $iv['invoiceNo'] . '" iid="' . $iv['invoiceId'] . '">View</span></td>';
     ?>
+    <td class="text-center"><?= $pos++; ?></td>    
+    <td class="text-center">
+        <span class="ipdf" itc="<?= $iv['templateCode']; ?>" ino="<?= $iv['invoiceNo']; ?>" iid="<?= $iv['invoiceId']; ?>">pdf</span> | 
+        <span class="izip" itc="<?= $iv['templateCode']; ?>" ino="<?= $iv['invoiceNo']; ?>" iid="<?= $iv['invoiceId']; ?>">zip</span>
+    </td>
+    <td class="text-center">
+        <span class="viewpdf" itc="<?= $iv['templateCode']; ?>" ino="<?= $iv['invoiceNo']; ?>" iid="<?= $iv['invoiceId']; ?>">View</span>
+    </td>
     <td><?= $iv['invoiceType']; ?></td>
     <td><?= $iv['adjustmentType']; ?></td>
     <td><?= $iv['templateCode']; ?></td>
@@ -25,7 +31,7 @@ foreach ($rows as $iv) {
     <td><?= $iv['downloadStatus']; ?></td>
     <td><?= $iv['exchangeStatus']; ?></td>
     <td><?= $iv['numOfExchange']; ?></td>
-    <td><?= date('Y-m-d h:i:s',$iv['createTime']/1000); ?></td>
+    <td><?= date('Y-m-d h:i:s', $iv['createTime'] / 1000); ?></td>
     <td><?= $iv['contractId']; ?></td>
     <td><?= $iv['contractNo']; ?></td>
     <td><?= $iv['supplierTaxCode']; ?></td>

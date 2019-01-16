@@ -135,9 +135,10 @@ class Lookupinvoice extends MX_Controller {
             $data->rows = $rsData['invoices'];
             $data->pagination = $links . $rsData['totalRow'];
             $data->totalrow = $rsData['totalRow'];
+            $data->pos = (($page - 1) * $this->rowInPage) + 1;
             $content = $this->load->view('list', $data, true);
             $rs['totalRow'] = $rsData['totalRow'];
-            $rs['from'] = (($page - 1) * $this->rowInPage) + 1;
+            $rs['from'] = $data->pos;
             $rs['to'] = ($page * $this->rowInPage);
             $rs['to'] = ($rs['to'] > $rs['totalRow'] ? $rs['totalRow'] : $rs['to']);
             $rs['page'] = $page;

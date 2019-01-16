@@ -164,18 +164,19 @@
                     <table id="tbl-content" style="width: 7200px;">
                         <thead>
                             <tr>
+                                <th class="text-center" style="width: 50px;">No.</th>
                                 <th class="text-center" style="width: 100px;">Download</th>
                                 <th class="text-center">View</th>
-                                <th>Invoice Type</th>
-                                <th>Adjustment Type</th>
-                                <th>Template Code</th>
-                                <th>Invoice Seri</th>
-                                <th>Invoice Number</th>
-                                <th>Invoice No</th>
-                                <th>Currency</th>
-                                <th>Total</th>
-                                <th>Issue Date</th>
-                                <th>Issue Date Str</th>
+                                <th style="width: 120px;">Invoice Type</th>
+                                <th style="width: 150px;">Adjustment Type</th>
+                                <th style="width: 130px;">Template Code</th>
+                                <th style="width: 120px;">Invoice Seri</th>
+                                <th style="width: 130px;">Invoice Number</th>
+                                <th style="width: 120px;">Invoice No</th>
+                                <th style="width: 120px;">Currency</th>
+                                <th style="width: 120px;">Total</th>
+                                <th style="width: 120px;">Issue Date</th>
+                                <th style="width: 120px;">Issue Date Str</th>
                                 <th>State</th>
                                 <th>Request Date</th>
                                 <th>Description</th>
