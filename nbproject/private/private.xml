@@ -8,6 +8,8 @@
             <file>file:/C:/xampp/htdocs/hoadon/application/frontend/modules/lookupinvoice/controllers/Lookupinvoice.php</file>
             <file>file:/C:/xampp/htdocs/hoadon/application/frontend/modules/services/controllers/Services.php</file>
             <file>file:/C:/xampp/htdocs/hoadon/application/frontend/modules/lookupinvoice/views/view.php</file>
+            <file>file:/C:/xampp/htdocs/hoadon/application/config/config.php</file>
+            <file>file:/C:/xampp/htdocs/hoadon/application/frontend/modules/lookupinvoice/views/busy.php</file>
         </group>
     </open-files>
 </project-private>

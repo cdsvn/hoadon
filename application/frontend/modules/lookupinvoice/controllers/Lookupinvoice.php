@@ -87,7 +87,7 @@ class Lookupinvoice extends MX_Controller {
 
         if($this->supplierTaxCode=='0311114017') {
             $up = base64_encode('0311114017:Test@123456');
-        } else if($this->supplierTaxCode=='0311114017') {
+        } else if($this->supplierTaxCode=='0100109106-997') {
             $up = base64_encode('0100109106-997:111111a@A');
         }
 
