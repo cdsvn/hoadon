@@ -1,8 +1,23 @@
 <style>
     #area-data {
         border: 3px solid #46b8da;
-        border-radius: 5px;       
+        border-radius: 5px;
     }
+    #tbl-content, #tbl-content td, #tbl-content th {
+        border: 1px solid #ddd;
+        padding: 3px 3px;
+    }
+    #tbl-content {
+        border-collapse: collapse;
+        border-color: #ddd;
+    }
+    #tbl-content > tbody > tr:nth-child(even) {
+        background: #f5f5f5;
+    }
+    #tbl-content > tbody > tr:nth-child(odd) {
+        background: #FFF;
+    }
+
     #pagination {
         padding: 15px 0;
     }
@@ -15,7 +30,7 @@
     #pagination a.current {
         text-decoration: none;
         cursor: default;
-        background-color: #edeff1;
+        background-color: #f5f5f5;
     }
     #pagination a:first-child {
         border-left: 1px solid #dee2e6;
@@ -34,10 +49,11 @@
     .ipdf, .izip, .viewpdf {
         cursor: pointer;
         text-transform: capitalize;
+        color: #138496;
     }
 </style>
 <div id="area-data">
-    <form class="form-horizontal" style="background-color: #edeff1; padding-top: 15px; padding-bottom: 10px;">
+    <form class="form-horizontal" style="background-color: #f5f5f5; padding-top: 15px; padding-bottom: 10px;">
         <div class="container">
             <div class="row">
                 <div class="form-group form-group-sm col-sm-4">
@@ -145,47 +161,46 @@
             </div>            
             <div class="col-md-12">
                 <div style="overflow: auto;">
-                    <table class="table table-bordered">
+                    <table id="tbl-content" style="width: 7200px;">
                         <thead>
                             <tr>
-                                <th>Download</th>
-                                <th>View</th>
-                                <th>invoiceId</th>
-                                <th>invoiceType</th>
-                                <th>adjustmentType</th>
-                                <th>templateCode</th>
-                                <th>invoiceSeri</th>
-                                <th>invoiceNumber</th>
-                                <th>invoiceNo</th>
-                                <th>currency</th>
-                                <th>total</th>
-                                <th>issueDate</th>
-                                <th>issueDateStr</th>
-                                <th>state</th>
-                                <th>requestDate</th>
-                                <th>description</th>
-                                <th>buyerIdNo</th>
-                                <th>stateCode</th>
-                                <th>subscriberNumber</th>
-                                <th>paymentStatus</th>
-                                <th>viewStatus</th>
-                                <th>downloadStatus</th>
-                                <th>exchangeStatus</th>
-                                <th>numOfExchange</th>
-                                <th>createTime</th>
-                                <th>contractId</th>
-                                <th>contractNo</th>
-                                <th>supplierTaxCode</th>
-                                <th>buyerTaxCode</th>
-                                <th>totalBeforeTax</th>
-                                <th>taxAmount</th>
-                                <th>taxRate</th>
-                                <th>paymentMethod</th>
-                                <th>paymentTime</th>
-                                <th>customerId</th>
-                                <th>buyerName</th>
-                                <th>no</th>
-                                <th>paymentStatusName</th>
+                                <th class="text-center" style="width: 100px;">Download</th>
+                                <th class="text-center">View</th>
+                                <th>Invoice Type</th>
+                                <th>Adjustment Type</th>
+                                <th>Template Code</th>
+                                <th>Invoice Seri</th>
+                                <th>Invoice Number</th>
+                                <th>Invoice No</th>
+                                <th>Currency</th>
+                                <th>Total</th>
+                                <th>Issue Date</th>
+                                <th>Issue Date Str</th>
+                                <th>State</th>
+                                <th>Request Date</th>
+                                <th>Description</th>
+                                <th>Buyer Id No</th>
+                                <th>State Code</th>
+                                <th>Subscriber Number</th>
+                                <th>Payment Status</th>
+                                <th>View Status</th>
+                                <th>Download Status</th>
+                                <th>Exchange Status</th>
+                                <th>Num Of Exchange</th>
+                                <th>Create Time</th>
+                                <th>Contract Id</th>
+                                <th>Contract No</th>
+                                <th>Supplier Tax Code</th>
+                                <th>Buyer Tax Code</th>
+                                <th>Total Before Tax</th>
+                                <th>Tax Amount</th>
+                                <th>Tax Rate</th>
+                                <th>Payment Method</th>
+                                <th>Payment Time</th>
+                                <th>Customer Id</th>
+                                <th style="width: 300px;">Buyer Name</th>
+                                <th>No</th>
+                                <th>Payment Status</th>
                             </tr>
                         </thead>
                         <tbody id="grid">

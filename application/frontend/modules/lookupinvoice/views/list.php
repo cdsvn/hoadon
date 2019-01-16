@@ -1,14 +1,44 @@
 <?php
-
 foreach ($rows as $iv) {
     echo "<tr>";
-    echo '<td><span class="ipdf" itc="' . $iv['templateCode'] . '" ino="' . $iv['invoiceNo'] . '" iid="' . $iv['invoiceId'] . '">pdf</span> | <span class="izip" itc="' . $iv['templateCode'] . '" ino="' . $iv['invoiceNo'] . '" iid="' . $iv['invoiceId'] . '">zip</span></td>';
-    echo '<td><span class="viewpdf" itc="' . $iv['templateCode'] . '" ino="' . $iv['invoiceNo'] . '" iid="' . $iv['invoiceId'] . '">View</span></td>';
-    foreach ($iv as $k=>$v) {
-    	if($k=='createTime') {
-    		$v = date("d-m-Y H:i", 1388516401);
-    	}
-        echo "<td>$v</td>";
-    }
-    echo "<tr>";
+    echo '<td class="text-center"><span class="ipdf" itc="' . $iv['templateCode'] . '" ino="' . $iv['invoiceNo'] . '" iid="' . $iv['invoiceId'] . '">pdf</span> | <span class="izip" itc="' . $iv['templateCode'] . '" ino="' . $iv['invoiceNo'] . '" iid="' . $iv['invoiceId'] . '">zip</span></td>';
+    echo '<td class="text-center"><span class="viewpdf" itc="' . $iv['templateCode'] . '" ino="' . $iv['invoiceNo'] . '" iid="' . $iv['invoiceId'] . '">View</span></td>';
+    ?>
+    <td><?= $iv['invoiceType']; ?></td>
+    <td><?= $iv['adjustmentType']; ?></td>
+    <td><?= $iv['templateCode']; ?></td>
+    <td><?= $iv['invoiceSeri']; ?></td>
+    <td><?= $iv['invoiceNumber']; ?></td>
+    <td><?= $iv['invoiceNo']; ?></td>
+    <td><?= $iv['currency']; ?></td>
+    <td><?= $iv['total']; ?></td>
+    <td><?= $iv['issueDate']; ?></td>
+    <td><?= $iv['issueDateStr']; ?></td>
+    <td><?= $iv['state']; ?></td>
+    <td><?= $iv['requestDate']; ?></td>
+    <td><?= $iv['description']; ?></td>
+    <td><?= $iv['buyerIdNo']; ?></td>
+    <td><?= $iv['stateCode']; ?></td>
+    <td><?= $iv['subscriberNumber']; ?></td>
+    <td><?= $iv['paymentStatus']; ?></td>
+    <td><?= $iv['viewStatus']; ?></td>
+    <td><?= $iv['downloadStatus']; ?></td>
+    <td><?= $iv['exchangeStatus']; ?></td>
+    <td><?= $iv['numOfExchange']; ?></td>
+    <td><?= date('Y-m-d h:i:s',$iv['createTime']/1000); ?></td>
+    <td><?= $iv['contractId']; ?></td>
+    <td><?= $iv['contractNo']; ?></td>
+    <td><?= $iv['supplierTaxCode']; ?></td>
+    <td><?= $iv['buyerTaxCode']; ?></td>
+    <td><?= $iv['totalBeforeTax']; ?></td>
+    <td><?= $iv['taxAmount']; ?></td>
+    <td><?= $iv['taxRate']; ?></td>
+    <td><?= $iv['paymentMethod']; ?></td>
+    <td><?= $iv['paymentTime']; ?></td>
+    <td><?= $iv['customerId']; ?></td>
+    <td><?= $iv['buyerName']; ?></td>
+    <td><?= $iv['no']; ?></td>
+    <td><?= $iv['paymentStatusName']; ?></td>
+    </tr>
+    <?php
 }
