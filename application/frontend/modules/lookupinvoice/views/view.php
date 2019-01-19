@@ -58,7 +58,7 @@
             <div class="row">
                 <div class="form-group form-group-sm col-sm-4">
                     <div class="row">
-                        <label for="first_name" class="col-sm-5 col-form-label">Invoice No.</label>
+                        <label for="first_name" class="col-sm-5 col-form-label"><?= $this->lang->line('invoice_no'); ?></label>
                         <div class="col-sm-7">
                             <input type="text" class="form-control ifform" id="invoiceno" name="invoiceno">
                         </div>
@@ -66,7 +66,7 @@
                 </div>
                 <div class="form-group form-group-sm col-sm-4">
                     <div class="row">
-                        <label for="Street" class="col-sm-5 col-form-label">Invoice Seri</label>
+                        <label for="Street" class="col-sm-5 col-form-label"><?= $this->lang->line('invoice_seri'); ?></label>
                         <div class="col-sm-7">
                             <input type="text" class="form-control ifform" id="invoiceseri" name="invoiceseri">
                         </div>
@@ -74,7 +74,7 @@
                 </div>
                 <div class="form-group form-group-sm col-sm-4">
                     <div class="row">
-                        <label for="last_name" class="col-sm-5 col-form-label">Invoice Type</label>
+                        <label for="last_name" class="col-sm-5 col-form-label"><?= $this->lang->line('invoice_type'); ?></label>
                         <div class="col-sm-7">
                             <input type="text" class="form-control ifform" id="invoicetype" name="invoicetype">
                         </div>
@@ -82,7 +82,7 @@
                 </div>
                 <div class="form-group form-group-sm col-sm-4">
                     <div class="row">
-                        <label for="City" class="col-sm-5 col-form-label">Buyer Tax Code</label>
+                        <label for="City" class="col-sm-5 col-form-label"><?= $this->lang->line('buyer_tax_code'); ?></label>
                         <div class="col-sm-7">
                             <input type="text" class="form-control ifform" id="buyertaxcode" name="buyertaxcode">
                         </div>
@@ -90,7 +90,7 @@
                 </div>
                 <div class="form-group form-group-sm col-sm-4">
                     <div class="row">
-                        <label for="City" class="col-sm-5 col-form-label">Template Code</label>
+                        <label for="City" class="col-sm-5 col-form-label"><?= $this->lang->line('template_code'); ?></label>
                         <div class="col-sm-7">
                             <input type="text" class="form-control ifform" id="templatecode" name="buyername">
                         </div>
@@ -98,7 +98,7 @@
                 </div>
                 <div class="form-group form-group-sm col-sm-4">
                     <div class="row">
-                        <label for="City" class="col-sm-5 col-form-label">Buyer ID No</label>
+                        <label for="City" class="col-sm-5 col-form-label"><?= $this->lang->line('buyer_id_no'); ?></label>
                         <div class="col-sm-7">
                             <input type="text" class="form-control ifform" id="buyeridno" name="buyeridno">
                         </div>
@@ -106,7 +106,7 @@
                 </div>                
                 <div class="form-group form-group-sm col-sm-4">
                     <div class="row">
-                        <label for="City" class="col-sm-5 col-form-label">From Date</label>
+                        <label for="City" class="col-sm-5 col-form-label"><?= $this->lang->line('from_date'); ?></label>
                         <div class="col-sm-7">
                             <div id="dpkstartdate" class="input-group date" data-date-format="dd-mm-yyyy">
                                 <input type="text" class="form-control ifform" id="startdate" name="startdate" readonly />                               
@@ -117,7 +117,7 @@
                 </div>
                 <div class="form-group form-group-sm col-sm-4">
                     <div class="row">
-                        <label for="City" class="col-sm-5 col-form-label">To Date</label>
+                        <label for="City" class="col-sm-5 col-form-label"><?= $this->lang->line('to_date'); ?></label>
                         <div class="col-sm-7">
                             <div id="dpkenddate" class="input-group date" data-date-format="dd-mm-yyyy">
                                 <input type="text" class="form-control ifform" id="enddate" name="enddate" readonly />                               
@@ -129,9 +129,9 @@
                 <div class="col-md-4">
                     <div class="btn-group float-right mt-2" role="group">
                         <a class="btn btn-info btn-md" id="ibtn-search" href="#">
-                            <i class="fa fa-search" aria-hidden="true"></i> Search</a>
+                            <i class="fa fa-search" aria-hidden="true"></i> <?= $this->lang->line('search'); ?></a>
                         <a class="btn btn-md btn-warning" id="ibtn-refresh" href="#">
-                            <i class="fa fa-refresh" aria-hidden="true"></i> Refresh</a>
+                            <i class="fa fa-refresh" aria-hidden="true"></i> <?= $this->lang->line('refresh'); ?></a>
                     </div>
                 </div>
             </div>
@@ -140,8 +140,15 @@
 
     <div class="container">   
         <div class="row">
-            <div class="col-md-7">
-                <div style="padding: 15px;">                    
+            <div class="col-md-6">
+                <div style="padding: 22px 0 0 0">
+                    <?= $this->lang->line('page'); ?> <span id="spagetop">0</span>/<span id="spagebottom">0</span>
+                    &nbsp;&nbsp;
+                    <?= $this->lang->line('display_from'); ?> <span id="sfrom"></span> <?= $this->lang->line('to'); ?> <span class="hide" id="sto"></span> <?= $this->lang->line('of'); ?> <span id="sall"></span> <?= $this->lang->line('record'); ?>
+                </div>
+            </div>  
+            <div class="col-md-6">                
+                <div style="float: right; padding: 16px 0px 15px 10px;">
                     <select id="srip" class="form-control" style="display: inline-block; width: 50px; height: 32px; padding: 3px 5px;">
                         <?php
                         for ($i = 1; $i < 5; $i++) {
@@ -149,14 +156,8 @@
                             echo '<option ' . ($rip == $rowInPage ? 'selected' : '') . ' value="' . $rip . '">' . $rip . '</option>';
                         }
                         ?>
-                    </select> rows/page
-                    &nbsp;&nbsp;
-                    <span id="spagetop">0</span>/<span id="spagebottom">0</span> page(s) 
-                    &nbsp;&nbsp;
-                    From <span id="sfrom"></span> to <span id="sto"></span> on <span id="sall"></span> record(s)
+                    </select>
                 </div>
-            </div>  
-            <div class="col-md-5">
                 <div id="pagination" class="float-right pagination"></div>
             </div>            
             <div class="col-md-12">
@@ -164,44 +165,40 @@
                     <table id="tbl-content" style="width: 7200px;">
                         <thead>
                             <tr>
-                                <th class="text-center" style="width: 50px;">No.</th>
-                                <th class="text-center" style="width: 100px;">Download</th>
-                                <th class="text-center">View</th>
-                                <th style="width: 120px;">Invoice Type</th>
-                                <th style="width: 150px;">Adjustment Type</th>
-                                <th style="width: 130px;">Template Code</th>
-                                <th style="width: 120px;">Invoice Seri</th>
-                                <th style="width: 130px;">Invoice Number</th>
-                                <th style="width: 120px;">Invoice No</th>
-                                <th style="width: 120px;">Currency</th>
-                                <th style="width: 120px;">Total</th>
-                                <th style="width: 120px;">Issue Date</th>
-                                <th style="width: 120px;">Issue Date Str</th>
-                                <th>State</th>
-                                <th>Request Date</th>
-                                <th>Description</th>
-                                <th>Buyer Id No</th>
-                                <th>State Code</th>
-                                <th>Subscriber Number</th>
-                                <th>Payment Status</th>
-                                <th>View Status</th>
-                                <th>Download Status</th>
-                                <th>Exchange Status</th>
-                                <th>Num Of Exchange</th>
-                                <th>Create Time</th>
-                                <th>Contract Id</th>
-                                <th>Contract No</th>
-                                <th>Supplier Tax Code</th>
-                                <th>Buyer Tax Code</th>
-                                <th>Total Before Tax</th>
-                                <th>Tax Amount</th>
-                                <th>Tax Rate</th>
-                                <th>Payment Method</th>
-                                <th>Payment Time</th>
-                                <th>Customer Id</th>
-                                <th style="width: 300px;">Buyer Name</th>
-                                <th>No</th>
-                                <th>Payment Status</th>
+                                <th class="text-center" style="width: 50px;"><?= $this->lang->line('no'); ?></th>
+                                <th class="text-center" style="width: 100px;"><?= $this->lang->line('download'); ?></th>
+                                <th class="text-center"><?= $this->lang->line('view'); ?></th>
+                                <th style="width: 120px;"><?= $this->lang->line('invoice_type'); ?></th>
+                                <th style="width: 150px;"><?= $this->lang->line('adjustment_type'); ?></th>
+                                <th style="width: 130px;"><?= $this->lang->line('template_code'); ?></th>
+                                <th style="width: 120px;"><?= $this->lang->line('invoice_seri'); ?></th>
+                                <th style="width: 130px;"><?= $this->lang->line('invoice_number'); ?></th>
+                                <th style="width: 120px;"><?= $this->lang->line('invoice_no'); ?></th>
+                                <th style="width: 120px;"><?= $this->lang->line('currency'); ?></th>
+                                <th style="width: 120px;"><?= $this->lang->line('total'); ?></th>
+                                <th style="width: 170px;"><?= $this->lang->line('issue_date'); ?></th>                            
+                                <th><?= $this->lang->line('state'); ?></th>
+                                <th><?= $this->lang->line('request_date'); ?></th>
+                                <th><?= $this->lang->line('description'); ?></th>
+                                <th><?= $this->lang->line('buyer_id_no'); ?></th>
+                                <th><?= $this->lang->line('state_code'); ?></th>
+                                <th><?= $this->lang->line('subscriber_number'); ?></th>
+                                <th><?= $this->lang->line('payment_status'); ?></th>
+                                <th><?= $this->lang->line('view_status'); ?></th>
+                                <th><?= $this->lang->line('download_status'); ?></th>
+                                <th><?= $this->lang->line('exchange_status'); ?></th>
+                                <th><?= $this->lang->line('num_of_exchange'); ?></th>
+                                <th><?= $this->lang->line('create_time'); ?></th>                             
+                                <th><?= $this->lang->line('contract_no'); ?></th>
+                                <th><?= $this->lang->line('supplier_tax_code'); ?></th>
+                                <th><?= $this->lang->line('buyer_tax_code'); ?></th>
+                                <th><?= $this->lang->line('total_before_tax'); ?></th>
+                                <th><?= $this->lang->line('tax_amount'); ?></th>
+                                <th><?= $this->lang->line('tax_rate'); ?></th>
+                                <th><?= $this->lang->line('payment_method'); ?></th>
+                                <th><?= $this->lang->line('payment_time'); ?></th>                             
+                                <th style="width: 300px;"><?= $this->lang->line('buyer name'); ?></th>                              
+                                <th><?= $this->lang->line('payment_status_name'); ?></th>
                             </tr>
                         </thead>
                         <tbody id="grid">

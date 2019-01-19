@@ -17,9 +17,8 @@ foreach ($rows as $iv) {
     <td><?= $iv['invoiceNumber']; ?></td>
     <td><?= $iv['invoiceNo']; ?></td>
     <td><?= $iv['currency']; ?></td>
-    <td><?= $iv['total']; ?></td>
-    <td><?= $iv['issueDate']; ?></td>
-    <td><?= $iv['issueDateStr']; ?></td>
+    <td><?= $iv['total']; ?></td>    
+    <td><?= date('Y-m-d h:i:s', $iv['issueDate'] / 1000); ?></td>
     <td><?= $iv['state']; ?></td>
     <td><?= $iv['requestDate']; ?></td>
     <td><?= $iv['description']; ?></td>
@@ -31,8 +30,7 @@ foreach ($rows as $iv) {
     <td><?= $iv['downloadStatus']; ?></td>
     <td><?= $iv['exchangeStatus']; ?></td>
     <td><?= $iv['numOfExchange']; ?></td>
-    <td><?= date('Y-m-d h:i:s', $iv['createTime'] / 1000); ?></td>
-    <td><?= $iv['contractId']; ?></td>
+    <td><?= date('Y-m-d h:i:s', $iv['createTime'] / 1000); ?></td>   
     <td><?= $iv['contractNo']; ?></td>
     <td><?= $iv['supplierTaxCode']; ?></td>
     <td><?= $iv['buyerTaxCode']; ?></td>
@@ -40,10 +38,8 @@ foreach ($rows as $iv) {
     <td><?= $iv['taxAmount']; ?></td>
     <td><?= $iv['taxRate']; ?></td>
     <td><?= $iv['paymentMethod']; ?></td>
-    <td><?= $iv['paymentTime']; ?></td>
-    <td><?= $iv['customerId']; ?></td>
-    <td><?= $iv['buyerName']; ?></td>
-    <td><?= $iv['no']; ?></td>
+    <td><?= $iv['paymentTime']; ?></td>   
+    <td><?= $iv['buyerName']; ?></td> 
     <td><?= $iv['paymentStatusName']; ?></td>
     </tr>
     <?php

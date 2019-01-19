@@ -228,10 +228,10 @@ class Admin_model extends CI_Model {
         $config['num_links'] = 3;
         $config['cur_tag_open'] = '<a href="#" class="current">';
         $config['cur_tag_close'] = '</a>';
-        $config['next_link'] = 'Next';
-        $config['prev_link'] = 'Previous';
-        $config['first_link'] = 'First';
-        $config['last_link'] = 'Last';
+        $config['next_link'] = '<span title="Tới trang kế tiếp">&#10097;</span>';
+        $config['prev_link'] = '<span title="Về trang sau">&#10096;</span>';
+        $config['first_link'] = '<span title="Về trang đầu">&#10096;&#10096;</span>';
+        $config['last_link'] = '<span title="Tới trang cuối">&#10097;&#10097;</span>';
         $config['page_query_string'] = FALSE; // using for ajax
         $config['query_string_segment'] = 'page';
         return $config;
