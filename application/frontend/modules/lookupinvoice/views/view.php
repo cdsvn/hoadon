@@ -129,7 +129,7 @@
                     </div>
                 </div>   
                 <div class="col-md-12">
-                    <div class="btn-group float-right mt-2" role="group">
+                    <div class="btn-group float-right mt-2" role="group" style="margin-top: 0px !important; margin-bottom: 5px;">
                         <a class="btn btn-info btn-md" id="ibtn-search" href="#">
                             <i class="fa fa-search" aria-hidden="true"></i> <?= $this->lang->line('search'); ?></a>
                         <a class="btn btn-md btn-warning" id="ibtn-refresh" href="#">
