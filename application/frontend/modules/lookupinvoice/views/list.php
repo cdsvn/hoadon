@@ -25,6 +25,7 @@ foreach ($rows as $iv) {
 		}
 		?>
 	</td>
+	<!--
 	<td>
 		<?php
 		if($iv['adjustmentType'] == 1) {
@@ -36,6 +37,7 @@ foreach ($rows as $iv) {
 		}
 		?>
 	</td>
+	-->
 	
 	<!--
     <td><?= $iv['invoiceType']; ?></td>

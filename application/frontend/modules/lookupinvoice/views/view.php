@@ -129,9 +129,9 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>					
                 <div class="col-md-12">
-                    <div class="btn-group float-center mt-2" role="group" style="margin-top: 0px !important; margin-bottom: 5px !important;">
+                    <div class="btn-group float-right mt-2" role="group" style="margin-top: 0px !important; margin-bottom: 5px !important;">
                         <a class="btn btn-info btn-md" id="ibtn-search" href="#">
                             <i class="fa fa-search" aria-hidden="true"></i> <?= $this->lang->line('search'); ?></a>
                         <a class="btn btn-md btn-warning" id="ibtn-refresh" href="#">
@@ -166,7 +166,7 @@
             </div>            
             <div class="col-md-12">
                 <div style="overflow: auto;">
-                    <table id="tbl-content" style="width: 1700px;">
+                    <table id="tbl-content" style="width: 1500px;">
                         <thead>
                             <tr>
                                 <th class="text-center" style="width: 50px;"><?= $this->lang->line('no'); ?></th>
@@ -179,7 +179,7 @@
                                 <th style="width: 120px;"><?= $this->lang->line('total'); ?></th>
 								<th style="width: 100px;"><?= $this->lang->line('currency'); ?></th>
 								<th style="width: 180px;"><?= $this->lang->line('payment_status'); ?></th>
-								<th style="width: 180px;"><?= $this->lang->line('adjustment_type'); ?></th>
+								<!--<th style="width: 180px;"><?= $this->lang->line('adjustment_type'); ?></th>-->
 								
 								<!--
                                 <th style="width: 120px;"><?= $this->lang->line('invoice_type'); ?></th>
