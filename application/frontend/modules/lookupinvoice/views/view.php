@@ -174,7 +174,7 @@
                                 <th class="text-center" style="width: 50px;"><?= $this->lang->line('view'); ?></th>
 								<th style="width: 120px;"><?= $this->lang->line('template_code'); ?></th>
 								<th style="width: 120px;"><?= $this->lang->line('invoice_no'); ?></th>
-								<th style="width: 170px;"><?= $this->lang->line('issue_date'); ?></th>
+								<th class="text-center" style="width: 170px;"><?= $this->lang->line('issue_date'); ?></th>
 								<th style=""><?= $this->lang->line('buyer_name'); ?></th>
                                 <th style="width: 120px;"><?= $this->lang->line('total'); ?></th>
 								<th style="width: 100px;"><?= $this->lang->line('currency'); ?></th>
