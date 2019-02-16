@@ -63,8 +63,7 @@
                             <input type="text" class="form-control ifform" id="invoiceno" name="invoiceno">
                         </div>
                     </div>
-                </div>
-				<!--
+                </div>				
                 <div class="form-group form-group-sm col-sm-4">
                     <div class="row">
                         <label for="Street" class="col-sm-5 col-form-label"><?= $this->lang->line('invoice_seri'); ?></label>
@@ -98,14 +97,15 @@
                     </div>
                 </div>
                 <div class="form-group form-group-sm col-sm-4">
+					<!--
                     <div class="row hide">                     
                         <label for="City" class="col-sm-5 col-form-label"><?= $this->lang->line('buyer_id_no'); ?></label>
                         <div class="col-sm-7">
                             <input type="text" class="form-control ifform" id="buyeridno" name="buyeridno">
                         </div>                        
                     </div>
-                </div>
-				-->				
+					-->
+                </div>		
                 <div class="form-group form-group-sm col-sm-4">
                     <div class="row">
                         <label for="City" class="col-sm-5 col-form-label"><?= $this->lang->line('from_date'); ?></label>
@@ -128,8 +128,8 @@
                         </div>
                     </div>
                 </div>   
-                <div class="col-md-12">
-                    <div class="btn-group float-right mt-2" role="group" style="margin-top: 0px !important; margin-bottom: 5px;">
+                <div class="col-md-4">
+                    <div class="btn-group float-right mt-2" role="group">
                         <a class="btn btn-info btn-md" id="ibtn-search" href="#">
                             <i class="fa fa-search" aria-hidden="true"></i> <?= $this->lang->line('search'); ?></a>
                         <a class="btn btn-md btn-warning" id="ibtn-refresh" href="#">
