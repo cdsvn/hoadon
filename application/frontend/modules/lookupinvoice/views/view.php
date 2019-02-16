@@ -272,6 +272,14 @@
     });
     function refreshform() {
         $('.ifform').val('');
+		$("#dpkstartdate").datepicker({
+            autoclose: true,
+            todayHighlight: true
+        }).datepicker('update', new Date(Date.now() - 8640000000));
+        $("#dpkenddate").datepicker({
+            autoclose: true,
+            todayHighlight: true
+        }).datepicker('update', new Date());
     }
     function getsearch() {
         var obj = {};
