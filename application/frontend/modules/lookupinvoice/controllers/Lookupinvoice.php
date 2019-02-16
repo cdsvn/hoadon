@@ -6,6 +6,10 @@ class Lookupinvoice extends MX_Controller {
 
     private $rowInPage = 5;
     private $supplierTaxCode = '';
+	private $purl = "https://demo-sinvoice.viettel.vn:8443";
+	private $pport = "8443";
+	//private $purl = "https://api-sinvoice.viettel.vn:443";
+	//private $pport = "443";
 
     function __construct() {
         parent::__construct();
@@ -112,16 +116,19 @@ class Lookupinvoice extends MX_Controller {
             $up = base64_encode('0311114017:Test@123456');
         } else if ($this->supplierTaxCode == '0100109106-997') {
             $up = base64_encode('0100109106-997:123456a@A');
+        } else if ($this->supplierTaxCode == '_0311114017') {
+            $up = base64_encode('0311114017_portal:111111a@A');
         }
-        // echo json_encode($arr_post); die;
+		//echo $this->purl . "/InvoiceAPI/InvoiceUtilsWS/getInvoices/" . $this->supplierTaxCode; die;
+        //echo json_encode($arr_post); die;
         $curl = curl_init();
         curl_setopt_array($curl, array(
-            CURLOPT_PORT => "8443",
-            CURLOPT_URL => "https://demo-sinvoice.viettel.vn:8443/InvoiceAPI/InvoiceUtilsWS/getInvoices/" . $this->supplierTaxCode,
+            CURLOPT_PORT => $this->pport,
+            CURLOPT_URL => $this->purl . "/InvoiceAPI/InvoiceUtilsWS/getInvoices/" . $this->supplierTaxCode,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
+            CURLOPT_TIMEOUT => 120,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
             CURLOPT_POSTFIELDS => json_encode($arr_post),
@@ -140,7 +147,7 @@ class Lookupinvoice extends MX_Controller {
         } else {
             $rs = json_decode($response, true);
         }
-        // echo '<pre>'; json_encode($arr_post); die; print_r($rs); die;
+        // echo '<pre>';  print_r($rs); die;
         return $rs;
     }
 
@@ -222,17 +229,19 @@ class Lookupinvoice extends MX_Controller {
             $up = base64_encode('0311114017:Test@123456');
         } else if ($this->supplierTaxCode == '0100109106-997') {
             $up = base64_encode('0100109106-997:123456a@A');
+        } else if ($this->supplierTaxCode == '_0311114017') {
+            $up = base64_encode('0311114017_portal:111111a@A');
         }
         
         // Curl Post
         $curl = curl_init();
         curl_setopt_array($curl, array(
-            CURLOPT_PORT => "8443",
-            CURLOPT_URL => "https://demo-sinvoice.viettel.vn:8443/InvoiceAPI/InvoiceUtilsWS/getInvoiceRepresentationFile",
+            CURLOPT_PORT => $this->pport,
+            CURLOPT_URL =>  $this->purl . "/InvoiceAPI/InvoiceUtilsWS/getInvoiceRepresentationFile",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
+            CURLOPT_TIMEOUT => 120,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
             CURLOPT_POSTFIELDS => json_encode($arr_post),

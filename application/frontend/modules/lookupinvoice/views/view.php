@@ -153,7 +153,7 @@
                 <div style="float: right; padding: 16px 0px 15px 10px;">
                     <select id="srip" class="form-control" style="display: inline-block; width: 52px; height: 32px; padding: 3px 5px;">
                         <?php
-                        for ($i = 1; $i < 5; $i++) {
+                        for ($i = 1; $i < 21; $i++) {
                             $rip = $i * 5;
                             echo '<option ' . ($rip == $rowInPage ? 'selected' : '') . ' value="' . $rip . '">' . $rip . '</option>';
                         }
@@ -249,7 +249,7 @@
         $("#dpkstartdate").datepicker({
             autoclose: true,
             todayHighlight: true
-        }).datepicker('update', new Date(Date.now() - 864e5));
+        }).datepicker('update', new Date(Date.now() - 8640000000));
         $("#dpkenddate").datepicker({
             autoclose: true,
             todayHighlight: true
