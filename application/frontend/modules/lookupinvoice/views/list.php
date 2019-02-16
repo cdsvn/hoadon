@@ -12,7 +12,7 @@ foreach ($rows as $iv) {
     </td>
 	<td><?= $iv['templateCode']; ?></td>
 	<td><?= $iv['invoiceNo']; ?></td>
-	<td><?= date('Y-m-d h:i:s', $iv['issueDate'] / 1000); ?></td>
+	<td class="text-center"><?= date('Y-m-d h:i:s', $iv['issueDate'] / 1000); ?></td>
 	<td><?= $iv['buyerName']; ?></td>	
     <td><?= $iv['total']; ?></td>
 	<td><?= $iv['currency']; ?></td>
