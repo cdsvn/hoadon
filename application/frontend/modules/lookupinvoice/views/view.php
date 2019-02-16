@@ -97,11 +97,13 @@
                     </div>
                 </div>
                 <div class="form-group form-group-sm col-sm-4">
-                    <div class="row">
+                    <div class="row hide">
+                        <!--
                         <label for="City" class="col-sm-5 col-form-label"><?= $this->lang->line('buyer_id_no'); ?></label>
                         <div class="col-sm-7">
                             <input type="text" class="form-control ifform" id="buyeridno" name="buyeridno">
                         </div>
+                        -->
                     </div>
                 </div>                
                 <div class="form-group form-group-sm col-sm-4">
@@ -149,7 +151,7 @@
             </div>  
             <div class="col-md-6">                
                 <div style="float: right; padding: 16px 0px 15px 10px;">
-                    <select id="srip" class="form-control" style="display: inline-block; width: 50px; height: 32px; padding: 3px 5px;">
+                    <select id="srip" class="form-control" style="display: inline-block; width: 52px; height: 32px; padding: 3px 5px;">
                         <?php
                         for ($i = 1; $i < 5; $i++) {
                             $rip = $i * 5;

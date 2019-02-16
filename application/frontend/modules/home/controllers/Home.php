@@ -52,7 +52,8 @@ class Home extends MX_Controller {
         } else {
             $data->rs = json_decode($response, true);
         }
-
+        print_r($data);
+        die;
         $content = $this->load->view('home', $data, true);
         $this->site->write('content', $content, true);
         $this->site->render();

@@ -14,6 +14,7 @@ class Lookupinvoice extends MX_Controller {
         $this->load->language('lookupinvoice');
         $this->load->library('pagination');
         $this->supplierTaxCode = $this->session->userdata('supplierTaxCode');
+        $this->buyerIdNo = $this->session->userdata('buyerIdNo');
         $this->rowInPage = $this->session->userdata('rowInPage');
     }
 
@@ -27,15 +28,29 @@ class Lookupinvoice extends MX_Controller {
     function _view() {
         $data = new stdClass();
         $supplierTaxCode = $this->uri->segment(2); // ma so thue
-        $secureSupplierTaxCode = $this->uri->segment(3); // ma bi mat
+        $buyerIdNo = $this->uri->segment(3); // ma so thue
+        $secureSupplierTaxCode = $this->uri->segment(4); // ma bi mat
+        // Nếu $buyerIdNo không có
+        if (empty($secureSupplierTaxCode)) {
+            $secureSupplierTaxCode = $buyerIdNo;
+            unset($buyerIdNo);
+        }
+
+        // Kiểm tra xem đủ điều kiện hay không
         if (empty($supplierTaxCode) || empty($secureSupplierTaxCode)) {
             $this->session->unset_userdata('supplierTaxCode');
+            $this->session->unset_userdata('buyerIdNo');
             die("INVALID PARAMS 1");
         } else {
             $this->session->unset_userdata('supplierTaxCode');
+            $this->session->unset_userdata('buyerIdNo');
             // Check supplierTaxCode va secureSupplierTaxCode xem hop le khong
             // http://localhost/hoadon/lookupinvoice/0100109106-997/1bf747e840356a789ce270b04bad1d83.html
-            $stmp = md5("1234qwer" . $supplierTaxCode . "0987@@@");
+            if (isset($buyerIdNo)) {
+                $stmp = md5("1234qwer" . $supplierTaxCode . "0987@@@" . $buyerIdNo);
+            } else {
+                $stmp = md5("1234qwer" . $supplierTaxCode . "0987@@@");
+            }
             if ($stmp != $secureSupplierTaxCode) {
                 die("INVALID PARAMS 2: " . $stmp);
             }
@@ -45,6 +60,10 @@ class Lookupinvoice extends MX_Controller {
             $this->session->set_userdata('rowInPage', 5);
         }
         $this->session->set_userdata('supplierTaxCode', $supplierTaxCode);
+        // Nếu tồn tại Buyer ID No thì set vào session
+        if (isset($buyerIdNo)) {
+            $this->session->set_userdata('buyerIdNo', $buyerIdNo);
+        }
         $data->rowInPage = $this->rowInPage;
         $content = $this->load->view('view', $data, true);
         $this->site->write('content', $content, true);
@@ -82,15 +101,19 @@ class Lookupinvoice extends MX_Controller {
             $arr_post['invoiceSeri'] = $searchs['invoiceseri'];
         }
 
+        if(!empty($this->buyerIdNo)) {
+            $arr_post['buyerIdNo'] = $this->buyerIdNo;
+        }
+        
         //echo '<pre>'; print_r($searchs); print_r($arr_post); die;
         //echo $this->supplierTaxCode; die;
 
-        if($this->supplierTaxCode=='0311114017') {
+        if ($this->supplierTaxCode == '0311114017') {
             $up = base64_encode('0311114017:Test@123456');
-        } else if($this->supplierTaxCode=='0100109106-997') {
-            $up = base64_encode('0100109106-997:111111a@A');
+        } else if ($this->supplierTaxCode == '0100109106-997') {
+            $up = base64_encode('0100109106-997:123456a@A');
         }
-
+        // echo json_encode($arr_post); die;
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_PORT => "8443",
@@ -117,7 +140,7 @@ class Lookupinvoice extends MX_Controller {
         } else {
             $rs = json_decode($response, true);
         }
-        // echo '<pre>'; print_r($rs); die;
+        // echo '<pre>'; json_encode($arr_post); die; print_r($rs); die;
         return $rs;
     }
 
@@ -165,7 +188,7 @@ class Lookupinvoice extends MX_Controller {
         if ($itype == "view") {
             $itype = "pdf";
         }
-        $rs = $this->getInvoiceCurl($itype, $supplierTaxCode, $ino, $itc);
+        $rs = $this->getInvoiceCurl($itype, $supplierTaxCode, $ino, $itc);        
         $rt = array("status" => "fail", "reason" => "curl fail");
         if (is_array($rs)) {
             $cf = $this->createFile($iid, $ino, $itype, $rs);
@@ -185,6 +208,7 @@ class Lookupinvoice extends MX_Controller {
     }
 
     private function getInvoiceCurl($fileType = 'pdf', $supplierTaxCode = '0100109106-997', $invoiceNo = 'AL/18E0000136', $pattern = '01GTKT0/001') {
+        // Khởi tạo param truyen đi
         $arr_post = array(
             'supplierTaxCode' => $supplierTaxCode,
             'invoiceNo' => $invoiceNo,
@@ -192,6 +216,15 @@ class Lookupinvoice extends MX_Controller {
             'transactionUuid' => "test",
             'fileType' => strtoupper($fileType)
         );
+        
+        // Thông tin account
+        if ($this->supplierTaxCode == '0311114017') {
+            $up = base64_encode('0311114017:Test@123456');
+        } else if ($this->supplierTaxCode == '0100109106-997') {
+            $up = base64_encode('0100109106-997:123456a@A');
+        }
+        
+        // Curl Post
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_PORT => "8443",
@@ -205,7 +238,7 @@ class Lookupinvoice extends MX_Controller {
             CURLOPT_POSTFIELDS => json_encode($arr_post),
             CURLOPT_HTTPHEADER => array(
                 "accept: application/json",
-                "authorization: Basic MDEwMDEwOTEwNi05OTc6MTExMTExYUBB",
+                "authorization: Basic $up",
                 "cache-control: no-cache",
                 "content-type: application/json"
             ),
