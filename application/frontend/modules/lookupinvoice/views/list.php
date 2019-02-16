@@ -10,6 +10,35 @@ foreach ($rows as $iv) {
     <td class="text-center">
         <span class="viewpdf" itc="<?= $iv['templateCode']; ?>" ino="<?= $iv['invoiceNo']; ?>" iid="<?= $iv['invoiceId']; ?>">View</span>
     </td>
+	<td><?= $iv['templateCode']; ?></td>
+	<td><?= $iv['invoiceNo']; ?></td>
+	<td><?= date('Y-m-d h:i:s', $iv['issueDate'] / 1000); ?></td>
+	<td><?= $iv['buyerName']; ?></td>
+	<td><?= $iv['buyerName']; ?></td>
+    <td><?= $iv['total']; ?></td>
+	<td><?= $iv['currency']; ?></td>
+	<td>
+		<?php
+		if($iv['paymentStatus'] == 1) {
+			echo "Đã thanh toán";
+		} else {
+			echo "Chưa thanh toán";
+		}
+		?>
+	</td>
+	<td>
+		<?php
+		if($iv['adjustmentType'] == 1) {
+			echo "Hóa đơn gốc";
+		} else if($iv['adjustmentType'] == 3) {
+			echo "Hóa đơn thay thế";
+		} else if($iv['adjustmentType'] == 5) {	
+			echo "Hóa đơn đã điều chỉnh";
+		}
+		?>
+	</td>
+	
+	<!--
     <td><?= $iv['invoiceType']; ?></td>
     <td><?= $iv['adjustmentType']; ?></td>
     <td><?= $iv['templateCode']; ?></td>
@@ -41,6 +70,7 @@ foreach ($rows as $iv) {
     <td><?= $iv['paymentTime']; ?></td>   
     <td><?= $iv['buyerName']; ?></td> 
     <td><?= $iv['paymentStatusName']; ?></td>
+	-->
     </tr>
     <?php
 }

@@ -72,6 +72,7 @@
                         </div>
                     </div>
                 </div>
+				<!--
                 <div class="form-group form-group-sm col-sm-4">
                     <div class="row">
                         <label for="last_name" class="col-sm-5 col-form-label"><?= $this->lang->line('invoice_type'); ?></label>
@@ -80,6 +81,7 @@
                         </div>
                     </div>
                 </div>
+				-->
                 <div class="form-group form-group-sm col-sm-4">
                     <div class="row">
                         <label for="City" class="col-sm-5 col-form-label"><?= $this->lang->line('buyer_tax_code'); ?></label>
@@ -96,16 +98,16 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group form-group-sm col-sm-4">
-					<!--
+				<!--
+                <div class="form-group form-group-sm col-sm-4">					
                     <div class="row hide">                     
                         <label for="City" class="col-sm-5 col-form-label"><?= $this->lang->line('buyer_id_no'); ?></label>
                         <div class="col-sm-7">
                             <input type="text" class="form-control ifform" id="buyeridno" name="buyeridno">
                         </div>                        
                     </div>
-					-->
-                </div>		
+                </div>
+				-->
                 <div class="form-group form-group-sm col-sm-4">
                     <div class="row">
                         <label for="City" class="col-sm-5 col-form-label"><?= $this->lang->line('from_date'); ?></label>
@@ -128,8 +130,8 @@
                         </div>
                     </div>
                 </div>   
-                <div class="col-md-4">
-                    <div class="btn-group float-right mt-2" role="group">
+                <div class="col-md-12">
+                    <div class="btn-group float-right mt-2" role="group" style="margin-top: 0px !important; margin-bottom: 5px !important;">
                         <a class="btn btn-info btn-md" id="ibtn-search" href="#">
                             <i class="fa fa-search" aria-hidden="true"></i> <?= $this->lang->line('search'); ?></a>
                         <a class="btn btn-md btn-warning" id="ibtn-refresh" href="#">
@@ -164,12 +166,23 @@
             </div>            
             <div class="col-md-12">
                 <div style="overflow: auto;">
-                    <table id="tbl-content" style="width: 7200px;">
+                    <table id="tbl-content" style="width: 2000px;">
                         <thead>
                             <tr>
                                 <th class="text-center" style="width: 50px;"><?= $this->lang->line('no'); ?></th>
-                                <th class="text-center" style="width: 100px;"><?= $this->lang->line('download'); ?></th>
-                                <th class="text-center"><?= $this->lang->line('view'); ?></th>
+                                <th class="text-center" style="width: 80px;"><?= $this->lang->line('download'); ?></th>
+                                <th class="text-center" style="width: 60px;"><?= $this->lang->line('view'); ?></th>
+								<th style="width: 120px;"><?= $this->lang->line('template_code'); ?></th>
+								<th style="width: 120px;"><?= $this->lang->line('invoice_no'); ?></th>
+								<th style="width: 170px;"><?= $this->lang->line('issue_date'); ?></th>
+								<th style=""><?= $this->lang->line('buyer_name'); ?></th>
+								<th style=""><?= $this->lang->line('buyer_legal_name'); ?></th>		
+                                <th style="width: 120px;"><?= $this->lang->line('total'); ?></th>
+								<th style="width: 120px;"><?= $this->lang->line('currency'); ?></th>
+								<th style="width: 200px;"><?= $this->lang->line('payment_status'); ?></th>
+								<th style="width: 200px;"><?= $this->lang->line('adjustment_type'); ?></th>
+								
+								<!--
                                 <th style="width: 120px;"><?= $this->lang->line('invoice_type'); ?></th>
                                 <th style="width: 150px;"><?= $this->lang->line('adjustment_type'); ?></th>
                                 <th style="width: 130px;"><?= $this->lang->line('template_code'); ?></th>
@@ -201,6 +214,7 @@
                                 <th><?= $this->lang->line('payment_time'); ?></th>
                                 <th style="width: 300px;"><?= $this->lang->line('buyer_name'); ?></th>                              
                                 <th><?= $this->lang->line('payment_status_name'); ?></th>
+								-->
                             </tr>
                         </thead>
                         <tbody id="grid">
