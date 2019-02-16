@@ -110,7 +110,7 @@ class Lookupinvoice extends MX_Controller {
             $arr_post['buyerIdNo'] = $this->buyerIdNo;
         }
         
-        //echo '<pre>'; print_r($searchs); print_r($arr_post); die;
+        // echo '<pre>'; print_r($searchs); print_r($arr_post); die;
         //echo $this->supplierTaxCode; die;
 
         if ($this->supplierTaxCode == '0311114017') {
@@ -121,7 +121,7 @@ class Lookupinvoice extends MX_Controller {
             $up = base64_encode('0311114017_portal:111111a@A');
         }
 		//echo $this->purl . "/InvoiceAPI/InvoiceUtilsWS/getInvoices/" . $this->supplierTaxCode; die;
-        //echo json_encode($arr_post); die;
+        // echo json_encode($arr_post); die;
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_PORT => $this->pport,
