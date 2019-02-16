@@ -14,7 +14,7 @@ foreach ($rows as $iv) {
 	<td><?= $iv['invoiceNo']; ?></td>
 	<td class="text-center"><?= date('Y-m-d h:i:s', $iv['issueDate'] / 1000); ?></td>
 	<td><?= $iv['buyerName']; ?></td>	
-    <td><?= number_format($iv['total'],0,",","."); ?></td>
+    <td><?= (!empty($iv['total'])?number_format($iv['total'],0,",","."):''); ?></td>
 	<td><?= $iv['currency']; ?></td>
 	<td>
 		<?php
