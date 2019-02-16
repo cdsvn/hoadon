@@ -148,7 +148,7 @@
                     &nbsp;&nbsp;
                     <?= $this->lang->line('display_from'); ?> <span id="sfrom"></span> <?= $this->lang->line('to'); ?> <span class="hide" id="sto"></span> <?= $this->lang->line('of'); ?> <span id="sall"></span> <?= $this->lang->line('record'); ?>
                 </div>
-            </div>  
+            </div>
             <div class="col-md-6">                
                 <div style="float: right; padding: 16px 0px 15px 10px;">
                     <select id="srip" class="form-control" style="display: inline-block; width: 52px; height: 32px; padding: 3px 5px;">
@@ -272,6 +272,7 @@
     }
     function getgrid(page) {
         var filter = getsearch();
+        $('#grid').html("<div style='padding: 5px;'>Loading...</div>");
         $.ajax({
             type: "POST",
             url: '<?= site_url('lookupinvoice/grid') ?>',
