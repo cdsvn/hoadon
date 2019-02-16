@@ -153,7 +153,7 @@
             </div>
             <div class="col-md-6">                
                 <div style="float: right; padding: 16px 0px 15px 10px;">
-                    <select id="srip" class="form-control" style="display: inline-block; width: 52px; height: 32px; padding: 3px 5px;">
+                    <select id="srip" class="form-control" style="display: inline-block; width: 62px; height: 32px; padding: 3px 5px;">
                         <?php
                         for ($i = 1; $i < 21; $i++) {
                             $rip = $i * 5;
@@ -166,7 +166,7 @@
             </div>            
             <div class="col-md-12">
                 <div style="overflow: auto;">
-                    <table id="tbl-content" style="width: 2300px;">
+                    <table id="tbl-content" style="width: 1700px;">
                         <thead>
                             <tr>
                                 <th class="text-center" style="width: 50px;"><?= $this->lang->line('no'); ?></th>
@@ -176,7 +176,6 @@
 								<th style="width: 120px;"><?= $this->lang->line('invoice_no'); ?></th>
 								<th style="width: 170px;"><?= $this->lang->line('issue_date'); ?></th>
 								<th style=""><?= $this->lang->line('buyer_name'); ?></th>
-								<th style=""><?= $this->lang->line('buyer_legal_name'); ?></th>		
                                 <th style="width: 120px;"><?= $this->lang->line('total'); ?></th>
 								<th style="width: 100px;"><?= $this->lang->line('currency'); ?></th>
 								<th style="width: 180px;"><?= $this->lang->line('payment_status'); ?></th>
@@ -237,7 +236,7 @@
         $(document.body).on('click', '.viewpdf', function () {
             getinvoice($(this).attr('iid'), $(this).attr('ino'), $(this).attr('itc'), 'view');
         });
-        $(document.body).on('click', '#srip', function () {
+        $(document.body).on('change', '#srip', function () {
             var rip = $(this).val();
             $.ajax({
                 type: "POST",
