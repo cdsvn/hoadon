@@ -51,10 +51,11 @@ class Lookupinvoice extends MX_Controller {
             // Check supplierTaxCode va secureSupplierTaxCode xem hop le khong
             // http://localhost/hoadon/lookupinvoice/0100109106-997/1bf747e840356a789ce270b04bad1d83.html
             if (isset($buyerIdNo)) {
-                $stmp = md5("1234qwer" . $supplierTaxCode . "0987@@@" . $buyerIdNo);
+                //$stmp = md5("1234qwer" . $supplierTaxCode . "0987@@@" . $buyerIdNo);
             } else {
-                $stmp = md5("1234qwer" . $supplierTaxCode . "0987@@@");
+                //$stmp = md5("1234qwer" . $supplierTaxCode . "0987@@@");
             }
+			$stmp = md5("1234qwer" . $supplierTaxCode . "0987@@@");
             if ($stmp != $secureSupplierTaxCode) {
                 die("INVALID PARAMS 2: " . $stmp);
             }
