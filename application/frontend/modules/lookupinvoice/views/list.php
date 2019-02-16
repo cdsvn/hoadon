@@ -8,7 +8,7 @@ foreach ($rows as $iv) {
         <span class="izip" itc="<?= $iv['templateCode']; ?>" ino="<?= $iv['invoiceNo']; ?>" iid="<?= $iv['invoiceId']; ?>">zip</span>
     </td>
     <td class="text-center">
-        <span class="viewpdf" itc="<?= $iv['templateCode']; ?>" ino="<?= $iv['invoiceNo']; ?>" iid="<?= $iv['invoiceId']; ?>">View</span>
+        <span class="viewpdf" itc="<?= $iv['templateCode']; ?>" ino="<?= $iv['invoiceNo']; ?>" iid="<?= $iv['invoiceId']; ?>"><i class="fa fa-eye" aria-hidden="true"></i></span>
     </td>
 	<td><?= $iv['templateCode']; ?></td>
 	<td><?= $iv['invoiceNo']; ?></td>

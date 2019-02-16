@@ -166,21 +166,21 @@
             </div>            
             <div class="col-md-12">
                 <div style="overflow: auto;">
-                    <table id="tbl-content" style="width: 2000px;">
+                    <table id="tbl-content" style="width: 2300px;">
                         <thead>
                             <tr>
                                 <th class="text-center" style="width: 50px;"><?= $this->lang->line('no'); ?></th>
                                 <th class="text-center" style="width: 80px;"><?= $this->lang->line('download'); ?></th>
-                                <th class="text-center" style="width: 60px;"><?= $this->lang->line('view'); ?></th>
+                                <th class="text-center" style="width: 50px;"><?= $this->lang->line('view'); ?></th>
 								<th style="width: 120px;"><?= $this->lang->line('template_code'); ?></th>
 								<th style="width: 120px;"><?= $this->lang->line('invoice_no'); ?></th>
 								<th style="width: 170px;"><?= $this->lang->line('issue_date'); ?></th>
 								<th style=""><?= $this->lang->line('buyer_name'); ?></th>
 								<th style=""><?= $this->lang->line('buyer_legal_name'); ?></th>		
                                 <th style="width: 120px;"><?= $this->lang->line('total'); ?></th>
-								<th style="width: 120px;"><?= $this->lang->line('currency'); ?></th>
-								<th style="width: 200px;"><?= $this->lang->line('payment_status'); ?></th>
-								<th style="width: 200px;"><?= $this->lang->line('adjustment_type'); ?></th>
+								<th style="width: 100px;"><?= $this->lang->line('currency'); ?></th>
+								<th style="width: 180px;"><?= $this->lang->line('payment_status'); ?></th>
+								<th style="width: 180px;"><?= $this->lang->line('adjustment_type'); ?></th>
 								
 								<!--
                                 <th style="width: 120px;"><?= $this->lang->line('invoice_type'); ?></th>
