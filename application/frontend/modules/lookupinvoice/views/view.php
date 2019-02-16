@@ -58,7 +58,7 @@
             <div class="row">
                 <div class="form-group form-group-sm col-sm-4">
                     <div class="row">
-                        <label for="first_name" class="col-sm-5 col-form-label"><?= $this->lang->line('invoice_no'); ?></label>
+                        <label for="invoiceno" class="col-sm-5 col-form-label"><?= $this->lang->line('invoice_no'); ?></label>
                         <div class="col-sm-7">
                             <input type="text" class="form-control ifform" id="invoiceno" name="invoiceno">
                         </div>
@@ -66,7 +66,7 @@
                 </div>				
                 <div class="form-group form-group-sm col-sm-4">
                     <div class="row">
-                        <label for="Street" class="col-sm-5 col-form-label"><?= $this->lang->line('invoice_seri'); ?></label>
+                        <label for="invoiceseri" class="col-sm-5 col-form-label"><?= $this->lang->line('invoice_seri'); ?></label>
                         <div class="col-sm-7">
                             <input type="text" class="form-control ifform" id="invoiceseri" name="invoiceseri">
                         </div>
@@ -84,7 +84,7 @@
 				-->
                 <div class="form-group form-group-sm col-sm-4">
                     <div class="row">
-                        <label for="City" class="col-sm-5 col-form-label"><?= $this->lang->line('buyer_tax_code'); ?></label>
+                        <label for="buyertaxcode" class="col-sm-5 col-form-label"><?= $this->lang->line('buyer_tax_code'); ?></label>
                         <div class="col-sm-7">
                             <input type="text" class="form-control ifform" id="buyertaxcode" name="buyertaxcode">
                         </div>
@@ -92,7 +92,7 @@
                 </div>
                 <div class="form-group form-group-sm col-sm-4">
                     <div class="row">
-                        <label for="City" class="col-sm-5 col-form-label"><?= $this->lang->line('template_code'); ?></label>
+                        <label for="templatecode" class="col-sm-5 col-form-label"><?= $this->lang->line('template_code'); ?></label>
                         <div class="col-sm-7">
                             <input type="text" class="form-control ifform" id="templatecode" name="buyername">
                         </div>
@@ -110,7 +110,7 @@
 				-->
                 <div class="form-group form-group-sm col-sm-4">
                     <div class="row">
-                        <label for="City" class="col-sm-5 col-form-label"><?= $this->lang->line('from_date'); ?></label>
+                        <label for="dpkstartdate" class="col-sm-5 col-form-label"><?= $this->lang->line('from_date'); ?></label>
                         <div class="col-sm-7">
                             <div id="dpkstartdate" class="input-group date" data-date-format="dd-mm-yyyy">
                                 <input type="text" class="form-control ifform" id="startdate" name="startdate" readonly />                               
@@ -121,7 +121,7 @@
                 </div>
                 <div class="form-group form-group-sm col-sm-4">
                     <div class="row">
-                        <label for="City" class="col-sm-5 col-form-label"><?= $this->lang->line('to_date'); ?></label>
+                        <label for="dpkenddate" class="col-sm-5 col-form-label"><?= $this->lang->line('to_date'); ?></label>
                         <div class="col-sm-7">
                             <div id="dpkenddate" class="input-group date" data-date-format="dd-mm-yyyy">
                                 <input type="text" class="form-control ifform" id="enddate" name="enddate" readonly />                               
@@ -129,9 +129,9 @@
                             </div>
                         </div>
                     </div>
-                </div>   
+                </div>
                 <div class="col-md-12">
-                    <div class="btn-group float-right mt-2" role="group" style="margin-top: 0px !important; margin-bottom: 5px !important;">
+                    <div class="btn-group float-center mt-2" role="group" style="margin-top: 0px !important; margin-bottom: 5px !important;">
                         <a class="btn btn-info btn-md" id="ibtn-search" href="#">
                             <i class="fa fa-search" aria-hidden="true"></i> <?= $this->lang->line('search'); ?></a>
                         <a class="btn btn-md btn-warning" id="ibtn-refresh" href="#">
