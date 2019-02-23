@@ -6,10 +6,11 @@ class Lookupinvoice extends MX_Controller {
 
     private $rowInPage = 5;
     private $supplierTaxCode = '';
-	private $purl = "https://demo-sinvoice.viettel.vn:8443";
-	private $pport = "8443";
-	//private $purl = "https://api-sinvoice.viettel.vn:443";
-	//private $pport = "443";
+    private $purl = "https://demo-sinvoice.viettel.vn:8443";
+    private $pport = "8443";
+
+    //private $purl = "https://api-sinvoice.viettel.vn:443";
+    //private $pport = "443";
 
     function __construct() {
         parent::__construct();
@@ -55,7 +56,7 @@ class Lookupinvoice extends MX_Controller {
             } else {
                 //$stmp = md5("1234qwer" . $supplierTaxCode . "0987@@@");
             }
-			$stmp = md5("1234qwer" . $supplierTaxCode . "0987@@@");
+            $stmp = md5("1234qwer" . $supplierTaxCode . "0987@@@");
             if ($stmp != $secureSupplierTaxCode) {
                 die("INVALID PARAMS 2: " . $stmp);
             }
@@ -105,11 +106,15 @@ class Lookupinvoice extends MX_Controller {
         if (!empty($searchs['invoiceseri'])) {
             $arr_post['invoiceSeri'] = $searchs['invoiceseri'];
         }
-
-        if(!empty($this->buyerIdNo)) {
-            $arr_post['buyerIdNo'] = $this->buyerIdNo;
+        // Gán từ link
+//        if (!empty($this->buyerIdNo)) {
+//            $arr_post['buyerIdNo'] = $this->buyerIdNo;
+//        }
+        // Gán từ form search
+        if (!empty($searchs['buyeridno'])) {
+            $arr_post['buyerIdNo'] = $searchs['buyeridno'];
         }
-        
+
         // echo '<pre>'; print_r($searchs); print_r($arr_post); die;
         //echo $this->supplierTaxCode; die;
 
@@ -120,7 +125,7 @@ class Lookupinvoice extends MX_Controller {
         } else if ($this->supplierTaxCode == '_0311114017') {
             $up = base64_encode('0311114017_portal:111111a@A');
         }
-		//echo $this->purl . "/InvoiceAPI/InvoiceUtilsWS/getInvoices/" . $this->supplierTaxCode; die;
+        //echo $this->purl . "/InvoiceAPI/InvoiceUtilsWS/getInvoices/" . $this->supplierTaxCode; die;
         // echo json_encode($arr_post); die;
         $curl = curl_init();
         curl_setopt_array($curl, array(
@@ -196,7 +201,7 @@ class Lookupinvoice extends MX_Controller {
         if ($itype == "view") {
             $itype = "pdf";
         }
-        $rs = $this->getInvoiceCurl($itype, $supplierTaxCode, $ino, $itc);        
+        $rs = $this->getInvoiceCurl($itype, $supplierTaxCode, $ino, $itc);
         $rt = array("status" => "fail", "reason" => "curl fail");
         if (is_array($rs)) {
             $cf = $this->createFile($iid, $ino, $itype, $rs);
@@ -224,7 +229,7 @@ class Lookupinvoice extends MX_Controller {
             'transactionUuid' => "test",
             'fileType' => strtoupper($fileType)
         );
-        
+
         // Thông tin account
         if ($this->supplierTaxCode == '0311114017') {
             $up = base64_encode('0311114017:Test@123456');
@@ -233,12 +238,12 @@ class Lookupinvoice extends MX_Controller {
         } else if ($this->supplierTaxCode == '_0311114017') {
             $up = base64_encode('0311114017_portal:111111a@A');
         }
-        
+
         // Curl Post
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_PORT => $this->pport,
-            CURLOPT_URL =>  $this->purl . "/InvoiceAPI/InvoiceUtilsWS/getInvoiceRepresentationFile",
+            CURLOPT_URL => $this->purl . "/InvoiceAPI/InvoiceUtilsWS/getInvoiceRepresentationFile",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,

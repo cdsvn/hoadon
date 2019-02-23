@@ -53,6 +53,7 @@
     }
 </style>
 <div id="area-data">
+
     <form class="form-horizontal" style="background-color: #f5f5f5; padding-top: 15px; padding-bottom: 10px;">
         <div class="container">
             <div class="row">
@@ -72,7 +73,7 @@
                         </div>
                     </div>
                 </div>
-				<!--
+                <!--
                 <div class="form-group form-group-sm col-sm-4">
                     <div class="row">
                         <label for="last_name" class="col-sm-5 col-form-label"><?= $this->lang->line('invoice_type'); ?></label>
@@ -81,7 +82,7 @@
                         </div>
                     </div>
                 </div>
-				-->
+                -->
                 <div class="form-group form-group-sm col-sm-4">
                     <div class="row">
                         <label for="buyertaxcode" class="col-sm-5 col-form-label"><?= $this->lang->line('buyer_tax_code'); ?></label>
@@ -94,20 +95,21 @@
                     <div class="row">
                         <label for="templatecode" class="col-sm-5 col-form-label"><?= $this->lang->line('template_code'); ?></label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control ifform" id="templatecode" name="buyername">
+                            <input type="text" class="form-control ifform" id="templatecode" name="templatecode">
                         </div>
                     </div>
-                </div>
-				<!--
-                <div class="form-group form-group-sm col-sm-4">					
+                </div>				
+                <div class="form-group form-group-sm col-sm-4">
                     <div class="row hide">                     
-                        <label for="City" class="col-sm-5 col-form-label"><?= $this->lang->line('buyer_id_no'); ?></label>
+                        <label for="City" class="col-sm-5 col-form-label"><?= $this->lang->line('distributor_code'); ?></label>
                         <div class="col-sm-7">
                             <input type="text" class="form-control ifform" id="buyeridno" name="buyeridno">
                         </div>                        
                     </div>
                 </div>
-				-->
+                <div class="form-group form-group-sm col-sm-4 hide">
+                    <a class="btn float-right" target="_blank" href="https://tracuuhoadon.newimageasia.vn"><?= $this->lang->line('look_up_invoices_by_secret_code'); ?></a>
+                </div>
                 <div class="form-group form-group-sm col-sm-4">
                     <div class="row">
                         <label for="dpkstartdate" class="col-sm-5 col-form-label"><?= $this->lang->line('from_date'); ?></label>
@@ -130,7 +132,7 @@
                         </div>
                     </div>
                 </div>					
-                <div class="col-md-12">
+                <div class="col-md-4">
                     <div class="btn-group float-right mt-2" role="group" style="margin-top: 0px !important; margin-bottom: 5px !important;">
                         <a class="btn btn-info btn-md" id="ibtn-search" href="#">
                             <i class="fa fa-search" aria-hidden="true"></i> <?= $this->lang->line('search'); ?></a>
@@ -172,48 +174,48 @@
                                 <th class="text-center" style="width: 50px;"><?= $this->lang->line('no'); ?></th>
                                 <th class="text-center" style="width: 80px;"><?= $this->lang->line('download'); ?></th>
                                 <th class="text-center" style="width: 50px;"><?= $this->lang->line('view'); ?></th>
-								<th style="width: 120px;"><?= $this->lang->line('template_code'); ?></th>
-								<th style="width: 120px;"><?= $this->lang->line('invoice_no'); ?></th>
-								<th class="text-center" style="width: 170px;"><?= $this->lang->line('issue_date'); ?></th>
-								<th style=""><?= $this->lang->line('buyer_name'); ?></th>
-                                <th style="width: 120px;"><?= $this->lang->line('total'); ?></th>
-								<th style="width: 100px;"><?= $this->lang->line('currency'); ?></th>
-								<th style="width: 180px;"><?= $this->lang->line('payment_status'); ?></th>
-								<!--<th style="width: 180px;"><?= $this->lang->line('adjustment_type'); ?></th>-->
-								
-								<!--
-                                <th style="width: 120px;"><?= $this->lang->line('invoice_type'); ?></th>
-                                <th style="width: 150px;"><?= $this->lang->line('adjustment_type'); ?></th>
-                                <th style="width: 130px;"><?= $this->lang->line('template_code'); ?></th>
-                                <th style="width: 120px;"><?= $this->lang->line('invoice_seri'); ?></th>
-                                <th style="width: 130px;"><?= $this->lang->line('invoice_number'); ?></th>
+                                <th style="width: 120px;"><?= $this->lang->line('template_code'); ?></th>
                                 <th style="width: 120px;"><?= $this->lang->line('invoice_no'); ?></th>
-                                <th style="width: 120px;"><?= $this->lang->line('currency'); ?></th>
+                                <th class="text-center" style="width: 170px;"><?= $this->lang->line('issue_date'); ?></th>
+                                <th style=""><?= $this->lang->line('distributor_code'); ?></th>
+                                <th style=""><?= $this->lang->line('buyer_name'); ?></th>
                                 <th style="width: 120px;"><?= $this->lang->line('total'); ?></th>
-                                <th style="width: 170px;"><?= $this->lang->line('issue_date'); ?></th>                            
-                                <th><?= $this->lang->line('state'); ?></th>
-                                <th><?= $this->lang->line('request_date'); ?></th>
-                                <th><?= $this->lang->line('description'); ?></th>
-                                <th><?= $this->lang->line('buyer_id_no'); ?></th>
-                                <th><?= $this->lang->line('state_code'); ?></th>
-                                <th><?= $this->lang->line('subscriber_number'); ?></th>
-                                <th><?= $this->lang->line('payment_status'); ?></th>
-                                <th><?= $this->lang->line('view_status'); ?></th>
-                                <th><?= $this->lang->line('download_status'); ?></th>
-                                <th><?= $this->lang->line('exchange_status'); ?></th>
-                                <th><?= $this->lang->line('num_of_exchange'); ?></th>
-                                <th><?= $this->lang->line('create_time'); ?></th>                             
-                                <th><?= $this->lang->line('contract_no'); ?></th>
-                                <th><?= $this->lang->line('supplier_tax_code'); ?></th>
-                                <th><?= $this->lang->line('buyer_tax_code'); ?></th>
-                                <th><?= $this->lang->line('total_before_tax'); ?></th>
-                                <th><?= $this->lang->line('tax_amount'); ?></th>
-                                <th><?= $this->lang->line('tax_rate'); ?></th>
-                                <th><?= $this->lang->line('payment_method'); ?></th>
-                                <th><?= $this->lang->line('payment_time'); ?></th>
-                                <th style="width: 300px;"><?= $this->lang->line('buyer_name'); ?></th>                              
-                                <th><?= $this->lang->line('payment_status_name'); ?></th>
-								-->
+                                <th style="width: 100px;"><?= $this->lang->line('currency'); ?></th>
+                                <th style="width: 180px;"><?= $this->lang->line('payment_status'); ?></th>
+
+<!--<th style="width: 180px;"><?= $this->lang->line('adjustment_type'); ?></th>-->
+<!--<th style="width: 120px;"><?= $this->lang->line('invoice_type'); ?></th>
+<th style="width: 150px;"><?= $this->lang->line('adjustment_type'); ?></th>
+<th style="width: 130px;"><?= $this->lang->line('template_code'); ?></th>
+<th style="width: 120px;"><?= $this->lang->line('invoice_seri'); ?></th>
+<th style="width: 130px;"><?= $this->lang->line('invoice_number'); ?></th>
+<th style="width: 120px;"><?= $this->lang->line('invoice_no'); ?></th>
+<th style="width: 120px;"><?= $this->lang->line('currency'); ?></th>
+<th style="width: 120px;"><?= $this->lang->line('total'); ?></th>
+<th style="width: 170px;"><?= $this->lang->line('issue_date'); ?></th>
+<th><?= $this->lang->line('state'); ?></th>
+<th><?= $this->lang->line('request_date'); ?></th>
+<th><?= $this->lang->line('description'); ?></th>
+<th><?= $this->lang->line('buyer_id_no'); ?></th>
+<th><?= $this->lang->line('state_code'); ?></th>
+<th><?= $this->lang->line('subscriber_number'); ?></th>
+<th><?= $this->lang->line('payment_status'); ?></th>
+<th><?= $this->lang->line('view_status'); ?></th>
+<th><?= $this->lang->line('download_status'); ?></th>
+<th><?= $this->lang->line('exchange_status'); ?></th>
+<th><?= $this->lang->line('num_of_exchange'); ?></th>
+<th><?= $this->lang->line('create_time'); ?></th>                             
+<th><?= $this->lang->line('contract_no'); ?></th>
+<th><?= $this->lang->line('supplier_tax_code'); ?></th>
+<th><?= $this->lang->line('buyer_tax_code'); ?></th>
+<th><?= $this->lang->line('total_before_tax'); ?></th>
+<th><?= $this->lang->line('tax_amount'); ?></th>
+<th><?= $this->lang->line('tax_rate'); ?></th>
+<th><?= $this->lang->line('payment_method'); ?></th>
+<th><?= $this->lang->line('payment_time'); ?></th>
+<th style="width: 300px;"><?= $this->lang->line('buyer_name'); ?></th>                              
+<th><?= $this->lang->line('payment_status_name'); ?></th>-->
+
                             </tr>
                         </thead>
                         <tbody id="grid">
@@ -257,7 +259,8 @@
         });
         $(document.body).on('click', '#ibtn-refresh', function () {
             refreshform();
-            getgrid(1);
+            $('#grid').html('');
+            // getgrid(1);
         });
         $("#dpkstartdate").datepicker({
             autoclose: true,
@@ -267,11 +270,11 @@
             autoclose: true,
             todayHighlight: true
         }).datepicker('update', new Date());
-        getgrid(1);
+        // getgrid(1);
     });
     function refreshform() {
         $('.ifform').val('');
-		$("#dpkstartdate").datepicker({
+        $("#dpkstartdate").datepicker({
             autoclose: true,
             todayHighlight: true
         }).datepicker('update', new Date(Date.now() - 8640000000));
