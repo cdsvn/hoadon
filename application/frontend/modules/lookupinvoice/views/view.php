@@ -53,7 +53,6 @@
     }
 </style>
 <div id="area-data">
-
     <form class="form-horizontal" style="background-color: #f5f5f5; padding-top: 15px; padding-bottom: 10px;">
         <div class="container">
             <div class="row">
@@ -101,7 +100,7 @@
                 </div>				
                 <div class="form-group form-group-sm col-sm-4">
                     <div class="row hide">                     
-                        <label for="City" class="col-sm-5 col-form-label"><?= $this->lang->line('distributor_code'); ?></label>
+                        <label for="City" class="col-sm-5 col-form-label"><?= $this->lang->line('distributor_code'); ?> <span style="color: red; font-weight: bold">*</span></label>
                         <div class="col-sm-7">
                             <input type="text" class="form-control ifform" id="buyeridno" name="buyeridno">
                         </div>                        
@@ -143,7 +142,26 @@
             </div>
         </div>
     </form>
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Thông báo</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <span id="myMsg"></span>
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                </div>
 
+            </div>
+        </div>
+    </div>
     <div class="container">   
         <div class="row">
             <div class="col-md-6">
@@ -280,7 +298,7 @@
         $('#sall').html(0);
         $('#spagetop').html(0);
         $('#spagebottom').html(0);
-        
+
         $("#dpkstartdate").datepicker({
             autoclose: true,
             todayHighlight: true
@@ -303,6 +321,11 @@
     }
     function getgrid(page) {
         var filter = getsearch();
+        if (filter.buyeridno.length === 0) {
+            $('#myMsg').html('Vui lòng nhập Mã NPP để tìm kiếm');
+            $('#myModal').modal('show');
+            return false;
+        }
         $('#grid').html("<div style='padding: 5px;'>Loading...</div>");
         $.ajax({
             type: "POST",
