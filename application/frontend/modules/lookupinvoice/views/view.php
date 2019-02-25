@@ -2,6 +2,7 @@
     #area-data {
         border: 3px solid #46b8da;
         border-radius: 5px;
+        min-height: 365px;
     }
     #tbl-content, #tbl-content td, #tbl-content th {
         border: 1px solid #ddd;
@@ -237,7 +238,7 @@
                             </tr>
                         </thead>
                         <tbody id="grid">
-
+                            <tr><td colspan='11'><div style='padding: 5px;'>Kết quả tìm kiếm.</div></td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -277,8 +278,7 @@
         });
         $(document.body).on('click', '#ibtn-refresh', function () {
             refreshform();
-            $('#grid').html('');
-            // getgrid(1);
+            $('#grid').html("<tr><td colspan='11'><div style='padding: 5px;'>Kết quả tìm kiếm.</div></td></tr>");        
         });
         $("#dpkstartdate").datepicker({
             autoclose: true,
@@ -326,7 +326,7 @@
             $('#myModal').modal('show');
             return false;
         }
-        $('#grid').html("<div style='padding: 5px;'>Loading...</div>");
+        $('#grid').html("<tr><td colspan='11'><div style='padding: 5px;'>Loading...</div></td></tr>");
         $.ajax({
             type: "POST",
             url: '<?= site_url('lookupinvoice/grid') ?>',
