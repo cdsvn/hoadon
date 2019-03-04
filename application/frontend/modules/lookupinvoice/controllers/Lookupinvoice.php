@@ -71,6 +71,7 @@ class Lookupinvoice extends MX_Controller {
             $this->session->set_userdata('buyerIdNo', $buyerIdNo);
         }
         $data->rowInPage = $this->rowInPage;
+        $data->buyerIdNo = isset($buyerIdNo) ? $buyerIdNo : '';
         $content = $this->load->view('view', $data, true);
         $this->site->write('content', $content, true);
         $this->site->render();
@@ -107,14 +108,12 @@ class Lookupinvoice extends MX_Controller {
             $arr_post['invoiceSeri'] = $searchs['invoiceseri'];
         }
         // Gán từ link
-//        if (!empty($this->buyerIdNo)) {
-//            $arr_post['buyerIdNo'] = $this->buyerIdNo;
-//        }
-        // Gán từ form search
-        if (!empty($searchs['buyeridno'])) {
+        if (!empty($this->buyerIdNo)) {
+            $arr_post['buyerIdNo'] = $this->buyerIdNo;
+        } else if (!empty($searchs['buyeridno'])) {
             $arr_post['buyerIdNo'] = $searchs['buyeridno'];
         }
-
+        // Gán từ form search
         // echo '<pre>'; print_r($searchs); print_r($arr_post); die;
         //echo $this->supplierTaxCode; die;
 

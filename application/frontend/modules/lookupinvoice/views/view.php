@@ -103,8 +103,8 @@
                     <div class="row hide">                     
                         <label for="City" class="col-sm-5 col-form-label"><?= $this->lang->line('distributor_code'); ?> <span style="color: red; font-weight: bold">*</span></label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control ifform" id="buyeridno" name="buyeridno">
-                        </div>                        
+                            <input type="text" class="form-control ifform" id="buyeridno" name="buyeridno" <?= !empty($buyerIdNo) ? 'readonly' : ''; ?> value="<?= $buyerIdNo; ?>">
+                        </div>
                     </div>
                 </div>
                 <div class="form-group form-group-sm col-sm-4 hide">
@@ -278,7 +278,7 @@
         });
         $(document.body).on('click', '#ibtn-refresh', function () {
             refreshform();
-            $('#grid').html("<tr><td colspan='11'><div style='padding: 5px;'>Kết quả tìm kiếm.</div></td></tr>");        
+            $('#grid').html("<tr><td colspan='11'><div style='padding: 5px;'>Kết quả tìm kiếm.</div></td></tr>");
         });
         $("#dpkstartdate").datepicker({
             autoclose: true,
