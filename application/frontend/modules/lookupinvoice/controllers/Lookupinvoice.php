@@ -6,11 +6,11 @@ class Lookupinvoice extends MX_Controller {
 
     private $rowInPage = 5;
     private $supplierTaxCode = '';
-    private $purl = "https://demo-sinvoice.viettel.vn:8443";
-    private $pport = "8443";
+    //private $purl = "https://demo-sinvoice.viettel.vn:8443";
+    //private $pport = "8443";
 
-    //private $purl = "https://api-sinvoice.viettel.vn:443";
-    //private $pport = "443";
+    private $purl = "https://api-sinvoice.viettel.vn:443";
+    private $pport = "443";
 
     function __construct() {
         parent::__construct();
@@ -118,11 +118,11 @@ class Lookupinvoice extends MX_Controller {
         // echo '<pre>'; print_r($searchs); print_r($arr_post); die;
         //echo $this->supplierTaxCode; die;
 
-        if ($this->supplierTaxCode == '0311114017') {
+        if ($this->supplierTaxCode == 't0311114017') {
             $up = base64_encode('0311114017:Test@123456');
         } else if ($this->supplierTaxCode == '0100109106-997') {
             $up = base64_encode('0100109106-997:123456a@A');
-        } else if ($this->supplierTaxCode == '_0311114017') {
+        } else if ($this->supplierTaxCode == '0311114017') {
             $up = base64_encode('0311114017_portal:111111a@A');
         }
         //echo $this->purl . "/InvoiceAPI/InvoiceUtilsWS/getInvoices/" . $this->supplierTaxCode; die;
@@ -231,11 +231,11 @@ class Lookupinvoice extends MX_Controller {
         );
 
         // Thông tin account
-        if ($this->supplierTaxCode == '0311114017') {
+        if ($this->supplierTaxCode == 't0311114017') {
             $up = base64_encode('0311114017:Test@123456');
         } else if ($this->supplierTaxCode == '0100109106-997') {
             $up = base64_encode('0100109106-997:123456a@A');
-        } else if ($this->supplierTaxCode == '_0311114017') {
+        } else if ($this->supplierTaxCode == '0311114017') {
             $up = base64_encode('0311114017_portal:111111a@A');
         }
 
