@@ -6,8 +6,6 @@ class Lookupinvoice extends MX_Controller {
 
     private $rowInPage = 5;
     private $supplierTaxCode = '';
-    //private $purl = "https://demo-sinvoice.viettel.vn:8443";
-    //private $pport = "8443";
 
     private $purl = "https://api-sinvoice.viettel.vn:443";
     private $pport = "443";
@@ -22,6 +20,8 @@ class Lookupinvoice extends MX_Controller {
         $this->buyerIdNo = $this->session->userdata('buyerIdNo');
         $this->rowInPage = $this->session->userdata('rowInPage');
         $this->config->load('account');
+        $this->purl = $this->config->item('purl');
+        $this->pport = $this->config->item('pport');
     }
 
     function _remap($method, $params = array()) {
