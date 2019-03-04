@@ -247,6 +247,7 @@
     </div>
 </div>
 <script type="text/javascript">
+    var buyerIdNo = '<?= $buyerIdNo; ?>';
     $(document).ready(function () {
         $(document.body).on('click', '.ipdf', function () {
             getinvoice($(this).attr('iid'), $(this).attr('ino'), $(this).attr('itc'), 'pdf');
@@ -288,7 +289,9 @@
             autoclose: true,
             todayHighlight: true
         }).datepicker('update', new Date());
-        // getgrid(1);
+        if (buyerIdNo.length > 0) {
+            getgrid(1);
+        }
     });
     function refreshform() {
         $('.ifform').val('');

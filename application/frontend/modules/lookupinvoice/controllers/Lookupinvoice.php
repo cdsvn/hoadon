@@ -21,6 +21,7 @@ class Lookupinvoice extends MX_Controller {
         $this->supplierTaxCode = $this->session->userdata('supplierTaxCode');
         $this->buyerIdNo = $this->session->userdata('buyerIdNo');
         $this->rowInPage = $this->session->userdata('rowInPage');
+        $this->config->load('account');
     }
 
     function _remap($method, $params = array()) {
@@ -28,6 +29,18 @@ class Lookupinvoice extends MX_Controller {
             return call_user_func_array(array($this, $method), $params);
         }
         $this->_view();
+    }
+
+    function checkAccount($supplierTaxCode) {
+        $arr = $this->config->item('infoByerIdNo');
+        $base64 = '';
+        foreach ($arr as $item) {
+            if ($supplierTaxCode == $item[0]) {
+                $base64 = base64_encode($item[1] . ':' . $item[2]);
+                break;
+            }
+        }
+        return $base64;
     }
 
     function _view() {
@@ -116,14 +129,14 @@ class Lookupinvoice extends MX_Controller {
         // Gán từ form search
         // echo '<pre>'; print_r($searchs); print_r($arr_post); die;
         //echo $this->supplierTaxCode; die;
-
-        if ($this->supplierTaxCode == 't0311114017') {
-            $up = base64_encode('0311114017:Test@123456');
-        } else if ($this->supplierTaxCode == '0100109106-997') {
-            $up = base64_encode('0100109106-997:123456a@A');
-        } else if ($this->supplierTaxCode == '0311114017') {
-            $up = base64_encode('0311114017_portal:111111a@A');
-        }
+//        if ($this->supplierTaxCode == 't0311114017') {
+//            $up = base64_encode('0311114017:Test@123456');
+//        } else if ($this->supplierTaxCode == '0100109106-997') {
+//            $up = base64_encode('0100109106-997:123456a@A');
+//        } else if ($this->supplierTaxCode == '0311114017') {
+//            $up = base64_encode('0311114017_portal:111111a@A');
+//        }
+        $up = $this->checkAccount($this->supplierTaxCode);
         //echo $this->purl . "/InvoiceAPI/InvoiceUtilsWS/getInvoices/" . $this->supplierTaxCode; die;
         //echo json_encode($arr_post); die;
         $curl = curl_init();
@@ -230,14 +243,14 @@ class Lookupinvoice extends MX_Controller {
         );
 
         // Thông tin account
-        if ($this->supplierTaxCode == 't0311114017') {
-            $up = base64_encode('0311114017:Test@123456');
-        } else if ($this->supplierTaxCode == '0100109106-997') {
-            $up = base64_encode('0100109106-997:123456a@A');
-        } else if ($this->supplierTaxCode == '0311114017') {
-            $up = base64_encode('0311114017_portal:111111a@A');
-        }
-
+//        if ($this->supplierTaxCode == 't0311114017') {
+//            $up = base64_encode('0311114017:Test@123456');
+//        } else if ($this->supplierTaxCode == '0100109106-997') {
+//            $up = base64_encode('0100109106-997:123456a@A');
+//        } else if ($this->supplierTaxCode == '0311114017') {
+//            $up = base64_encode('0311114017_portal:111111a@A');
+//        }
+        $up = $this->checkAccount($this->supplierTaxCode);
         // Curl Post
         $curl = curl_init();
         curl_setopt_array($curl, array(
