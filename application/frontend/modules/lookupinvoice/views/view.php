@@ -108,7 +108,7 @@
                     </div>
                 </div>
                 <div class="form-group form-group-sm col-sm-4 hide">
-                    <a class="btn float-right" target="_blank" href="https://tracuuhoadon.newimageasia.vn"><?= $this->lang->line('look_up_invoices_by_secret_code'); ?></a>
+                    <a class="btn float-right" target="_blank" href="http://tracuuhoadon.newimageasia.vn"><?= $this->lang->line('look_up_invoices_by_secret_code'); ?></a>
                 </div>
                 <div class="form-group form-group-sm col-sm-4">
                     <div class="row">
