@@ -15,3 +15,6 @@
     $config['infoByerIdNo'] = array(
         array('0311114017', '0311114017_portal', '111111a@A')
     );
+    $config['infoByerIdNoChild'] = array(
+        array('0311114017-004', '0311114017-004')
+    );
