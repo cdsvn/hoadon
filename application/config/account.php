@@ -13,8 +13,5 @@
     $config['purl'] = 'https://api-sinvoice.viettel.vn:443';
     $config['pport'] = '443';
     $config['infoByerIdNo'] = array(
-        array('0311114017', '0311114017_portal', '111111a@A')
-    );
-    $config['infoByerIdNoChild'] = array(
-        array('0311114017-004', '0311114017-004')
+        "0311114017" => array('0311114017', '0311114017_portal', '111111a@A', array('0311114017-004', '0311114017-005'))
     );

@@ -6,7 +6,6 @@ class Lookupinvoice extends MX_Controller {
 
     private $rowInPage = 5;
     private $supplierTaxCode = '';
-
     private $purl = "https://api-sinvoice.viettel.vn:443";
     private $pport = "443";
 
@@ -33,13 +32,8 @@ class Lookupinvoice extends MX_Controller {
 
     function checkAccount($supplierTaxCode) {
         $arr = $this->config->item('infoByerIdNo');
-        $base64 = '';
-        foreach ($arr as $item) {
-            if ($supplierTaxCode == $item[0]) {
-                $base64 = base64_encode($item[1] . ':' . $item[2]);
-                break;
-            }
-        }
+        $item = $arr[$supplierTaxCode];
+        $base64 = base64_encode($item[1] . ':' . $item[2]);
         return $base64;
     }
 
@@ -90,7 +84,7 @@ class Lookupinvoice extends MX_Controller {
         $this->site->render();
     }
 
-    private function getListInvoice($rowPerPage = 5, $pageNum = '1', $searchs = array()) {
+    private function getListInvoice($rowPerPage = 5, $pageNum = '1', $searchs = array(), $subBuyerIdNo = '') {
         $arr_post = array(
             'startDate' => '2017-12-12',
             'endDate' => '2017-12-31',
@@ -128,21 +122,20 @@ class Lookupinvoice extends MX_Controller {
         }
         // Gán từ form search
         // echo '<pre>'; print_r($searchs); print_r($arr_post); die;
-        //echo $this->supplierTaxCode; die;
-//        if ($this->supplierTaxCode == 't0311114017') {
-//            $up = base64_encode('0311114017:Test@123456');
-//        } else if ($this->supplierTaxCode == '0100109106-997') {
-//            $up = base64_encode('0100109106-997:123456a@A');
-//        } else if ($this->supplierTaxCode == '0311114017') {
-//            $up = base64_encode('0311114017_portal:111111a@A');
-//        }
+        // echo $this->supplierTaxCode; die;
+        // Kiểm tra tài khoản để tạo ra chuỗi phù hợp.
         $up = $this->checkAccount($this->supplierTaxCode);
-        //echo $this->purl . "/InvoiceAPI/InvoiceUtilsWS/getInvoices/" . $this->supplierTaxCode; die;
-        //echo json_encode($arr_post); die;
+
+        if (!empty($subBuyerIdNo)) {
+            $supplierTaxCode = $subBuyerIdNo;
+        } else {
+            $supplierTaxCode = $this->supplierTaxCode;
+        }
+
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_PORT => $this->pport,
-            CURLOPT_URL => $this->purl . "/InvoiceAPI/InvoiceUtilsWS/getInvoices/" . $this->supplierTaxCode,
+            CURLOPT_URL => $this->purl . "/InvoiceAPI/InvoiceUtilsWS/getInvoices/" . $supplierTaxCode,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
@@ -169,11 +162,55 @@ class Lookupinvoice extends MX_Controller {
         return $rs;
     }
 
+    function processHasData($subBIN, $buyeridno) {
+        // Nếu đã có bảng map Mã NPP với link trong session thì lấy ra, chưa thì khởi tạo
+        if ($this->session->has_userdata('mapBIN')) {
+            $arr = $this->session->userdata('mapBIN');
+        } else {
+            $arr = array();
+        }
+        $arr[$buyeridno] = $subBIN;
+        $this->session->set_userdata('mapBIN', $arr);
+    }
+
+    function checkLinkExistData($buyeridno) {
+        $subBIN = '';
+        if ($this->session->has_userdata('mapBIN')) {
+            $arr = $this->session->userdata('mapBIN');
+            if (!empty($arr[$buyeridno])) {
+                $subBIN = $arr[$buyeridno];
+            }
+        }
+        return $subBIN;
+    }
+
     function grid() {
         $data = new stdClass();
         $page = $this->input->post('page');
         $searchs = json_decode($this->input->post('filter'), true);
-        $rsData = $this->getListInvoice($this->rowInPage, $page, $searchs);
+        // Kiểm tra trong session xem mã NPP này đã search có data trong link nào
+        $supplierTaxCode = $this->checkLinkExistData($searchs['buyeridno']);
+        // Gọi hàm lấy data với link supplierTaxCode bên trên
+        $rsData = $this->getListInvoice($this->rowInPage, $page, $searchs, $supplierTaxCode);
+        // Nếu link không có data
+        if (isset($rsData['totalRow']) && $rsData['totalRow'] == 0) {
+            // Lấy danh sách link con là 3 index trong config
+            $arrBIN = $this->config->item('infoByerIdNo');
+            $cur = $arrBIN[$this->supplierTaxCode];
+            // Nếu danh sách link con có tồn tại
+            if (!empty($cur[3]) && is_array($cur[3])) {
+                // Duyệt qua từng link
+                foreach ($cur[3] as $sub) {
+                    // Gọi hàm lấy data theo link con
+                    $rsData = $this->getListInvoice($this->rowInPage, $page, $searchs, $sub);
+                    // Nếu có data thì lưu link và Ma NPP vào seesion
+                    if (isset($rsData['totalRow']) && $rsData['totalRow'] != 0) {
+                        $this->processHasData($sub, $searchs['buyeridno']);
+                        break;
+                    }
+                }
+            }
+        }
         // Có kết quả trả về
         if (is_array($rsData) && empty($rsData['errorCode'])) {
             $limit = $this->rowInPage;
@@ -242,14 +279,6 @@ class Lookupinvoice extends MX_Controller {
             'fileType' => strtoupper($fileType)
         );
 
-        // Thông tin account
-//        if ($this->supplierTaxCode == 't0311114017') {
-//            $up = base64_encode('0311114017:Test@123456');
-//        } else if ($this->supplierTaxCode == '0100109106-997') {
-//            $up = base64_encode('0100109106-997:123456a@A');
-//        } else if ($this->supplierTaxCode == '0311114017') {
-//            $up = base64_encode('0311114017_portal:111111a@A');
-//        }
         $up = $this->checkAccount($this->supplierTaxCode);
         // Curl Post
         $curl = curl_init();
