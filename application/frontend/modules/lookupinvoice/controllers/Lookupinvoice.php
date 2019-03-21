@@ -210,6 +210,10 @@ class Lookupinvoice extends MX_Controller {
                     }
                 }
             }
+        } else {
+            if ($rsData['totalRow'] > 0) {
+                $this->processHasData($supplierTaxCode, $searchs['buyeridno']);
+            }
         }
         // Có kết quả trả về
         if (is_array($rsData) && empty($rsData['errorCode'])) {
