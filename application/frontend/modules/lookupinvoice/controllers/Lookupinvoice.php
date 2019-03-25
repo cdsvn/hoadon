@@ -185,8 +185,8 @@ class Lookupinvoice extends MX_Controller {
             } else {
                 $str .= " - null";
             }
-        }
-        $logPath = FCPATH . "files\logs.txt";
+        }       
+        $logPath = FCPATH . "/files/logs.txt";
         $mode = (!file_exists($logPath)) ? 'w' : 'a';
         $logfile = fopen($logPath, $mode);
         fwrite($logfile, "\r\n" . $str);
