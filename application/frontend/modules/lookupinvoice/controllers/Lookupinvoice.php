@@ -119,10 +119,7 @@ class Lookupinvoice extends MX_Controller {
             $arr_post['buyerIdNo'] = $this->buyerIdNo;
         } else if (!empty($searchs['buyeridno'])) {
             $arr_post['buyerIdNo'] = $searchs['buyeridno'];
-        }
-        // Gán từ form search
-        // echo '<pre>'; print_r($searchs); print_r($arr_post); die;
-        // echo $this->supplierTaxCode; die;
+        }     
         // Kiểm tra tài khoản để tạo ra chuỗi phù hợp.
         $up = $this->checkAccount($this->supplierTaxCode);
 
@@ -131,7 +128,7 @@ class Lookupinvoice extends MX_Controller {
         } else {
             $supplierTaxCode = $this->supplierTaxCode;
         }
-
+      
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_PORT => $this->pport,
@@ -140,6 +137,7 @@ class Lookupinvoice extends MX_Controller {
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
             CURLOPT_TIMEOUT => 120,
+            CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
             CURLOPT_POSTFIELDS => json_encode($arr_post),
@@ -158,8 +156,41 @@ class Lookupinvoice extends MX_Controller {
         } else {
             $rs = json_decode($response, true);
         }
-        // echo '<pre>';  print_r($rs); die;
+        $this->_writeLogToFile($this->purl . "/InvoiceAPI/InvoiceUtilsWS/getInvoices/" . $supplierTaxCode, $rs, $arr_post);
         return $rs;
+    }
+
+    /*
+     * Write log access
+     * datetime mnpp total err
+     */
+
+    function _writeLogToFile($url, $data, $searchs) {        
+        $str = date("Y-m-d H:i:s") . ' ' . $url;
+        if (!empty($searchs['buyerIdNo'])) {
+            $str .= " " . $searchs['buyerIdNo'];
+        } else {
+            $str .= " - empty ";
+        }
+        if (is_string($data)) {
+            $str .= " - " . $data;
+        } else {
+            if (!empty($data['totalRow'])) {
+                $str .= " - " . $data['totalRow'];
+            } else {
+                $str .= " - null";
+            }
+            if (!empty($data['errorCode'])) {
+                $str .= " - " . $data['errorCode'];
+            } else {
+                $str .= " - null";
+            }
+        }
+        $logPath = FCPATH . "files\logs.txt";
+        $mode = (!file_exists($logPath)) ? 'w' : 'a';
+        $logfile = fopen($logPath, $mode);
+        fwrite($logfile, "\r\n" . $str);
+        fclose($logfile);
     }
 
     function processHasData($subBIN, $buyeridno) {
@@ -192,7 +223,6 @@ class Lookupinvoice extends MX_Controller {
         $supplierTaxCode = $this->checkLinkExistData($searchs['buyeridno']);
         // Gọi hàm lấy data với link supplierTaxCode bên trên
         $rsData = $this->getListInvoice($this->rowInPage, $page, $searchs, $supplierTaxCode);
-        // Nếu link không có data
         if (isset($rsData['totalRow']) && $rsData['totalRow'] == 0) {
             // Lấy danh sách link con là 3 index trong config
             $arrBIN = $this->config->item('infoByerIdNo');
@@ -211,7 +241,7 @@ class Lookupinvoice extends MX_Controller {
                 }
             }
         } else {
-            if ($rsData['totalRow'] > 0) {
+            if (!empty($rsData['totalRow'])) {
                 $this->processHasData($supplierTaxCode, $searchs['buyeridno']);
             }
         }

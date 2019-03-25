@@ -1,0 +1,2 @@
+
+2019-03-25 22:08:03 https://api-sinvoice.viettel.vn:443/InvoiceAPI/InvoiceUtilsWS/getInvoices/0311114017-005 1437501 - 5 - null

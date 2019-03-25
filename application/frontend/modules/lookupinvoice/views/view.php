@@ -325,9 +325,9 @@
     function getgrid(page) {
         var filter = getsearch();
         if (filter.buyeridno.length === 0) {
-            $('#myMsg').html('Vui lòng nhập Mã NPP để tìm kiếm');
-            $('#myModal').modal('show');
-            return false;
+//            $('#myMsg').html('Vui lòng nhập Mã NPP để tìm kiếm');
+//            $('#myModal').modal('show');
+//            return false;
         }
         $('#grid').html("<tr><td colspan='11'><div style='padding: 5px;'>Loading...</div></td></tr>");
         $.ajax({
