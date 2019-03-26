@@ -33,7 +33,7 @@ class Lookupinvoice extends MX_Controller {
     function checkAccount($supplierTaxCode, $supplierTaxCodeChild = '') {
         $arr = $this->config->item('infoByerIdNo');
         $item = $arr[$supplierTaxCode];
-        if (empty($supplierTaxCodeChild)) {
+        if (empty($supplierTaxCodeChild) || $supplierTaxCode == $supplierTaxCodeChild) {
             $base64 = base64_encode($item[1] . ':' . $item[2]);
         } else {
             $child = $item[3][$supplierTaxCodeChild];
