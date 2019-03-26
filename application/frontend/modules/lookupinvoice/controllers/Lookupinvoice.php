@@ -30,10 +30,15 @@ class Lookupinvoice extends MX_Controller {
         $this->_view();
     }
 
-    function checkAccount($supplierTaxCode) {
+    function checkAccount($supplierTaxCode, $supplierTaxCodeChild = '') {
         $arr = $this->config->item('infoByerIdNo');
         $item = $arr[$supplierTaxCode];
-        $base64 = base64_encode($item[1] . ':' . $item[2]);
+        if (empty($supplierTaxCodeChild)) {
+            $base64 = base64_encode($item[1] . ':' . $item[2]);
+        } else {
+            $child = $item[3][$supplierTaxCodeChild];
+            $base64 = base64_encode($child[0] . ':' . $child[1]);
+        }
         return $base64;
     }
 
@@ -156,6 +161,9 @@ class Lookupinvoice extends MX_Controller {
         } else {
             $rs = json_decode($response, true);
         }
+//        echo '<pre>';
+//        print_r($rs);
+//        die;
         $this->_writeLogToFile($this->purl . "/InvoiceAPI/InvoiceUtilsWS/getInvoices/" . $supplierTaxCode, $rs, $arr_post);
         return $rs;
     }
@@ -230,7 +238,7 @@ class Lookupinvoice extends MX_Controller {
             // Nếu danh sách link con có tồn tại
             if (!empty($cur[3]) && is_array($cur[3])) {
                 // Duyệt qua từng link
-                foreach ($cur[3] as $sub) {
+                foreach ($cur[3] as $sub => $val) {
                     // Gọi hàm lấy data theo link con
                     $rsData = $this->getListInvoice($this->rowInPage, $page, $searchs, $sub);
                     // Nếu có data thì lưu link và Ma NPP vào seesion
@@ -319,7 +327,7 @@ class Lookupinvoice extends MX_Controller {
             'fileType' => strtoupper($fileType)
         );
         //print_r($arr_post); die;
-        $up = $this->checkAccount($this->supplierTaxCode);
+        $up = $this->checkAccount($this->supplierTaxCode, $supplierTaxCode);
         // Curl Post
         $curl = curl_init();
         curl_setopt_array($curl, array(
