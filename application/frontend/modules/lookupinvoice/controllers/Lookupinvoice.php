@@ -119,7 +119,7 @@ class Lookupinvoice extends MX_Controller {
             $arr_post['buyerIdNo'] = $this->buyerIdNo;
         } else if (!empty($searchs['buyeridno'])) {
             $arr_post['buyerIdNo'] = $searchs['buyeridno'];
-        }     
+        }
         // Kiểm tra tài khoản để tạo ra chuỗi phù hợp.
         $up = $this->checkAccount($this->supplierTaxCode);
 
@@ -128,7 +128,7 @@ class Lookupinvoice extends MX_Controller {
         } else {
             $supplierTaxCode = $this->supplierTaxCode;
         }
-      
+
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_PORT => $this->pport,
@@ -165,7 +165,7 @@ class Lookupinvoice extends MX_Controller {
      * datetime mnpp total err
      */
 
-    function _writeLogToFile($url, $data, $searchs) {        
+    function _writeLogToFile($url, $data, $searchs) {
         $str = date("Y-m-d H:i:s") . ' ' . $url;
         if (!empty($searchs['buyerIdNo'])) {
             $str .= " " . $searchs['buyerIdNo'];
@@ -185,7 +185,7 @@ class Lookupinvoice extends MX_Controller {
             } else {
                 $str .= " - null";
             }
-        }       
+        }
         $logPath = FCPATH . "/files/logs.txt";
         $mode = (!file_exists($logPath)) ? 'w' : 'a';
         $logfile = fopen($logPath, $mode);
@@ -235,6 +235,7 @@ class Lookupinvoice extends MX_Controller {
                     $rsData = $this->getListInvoice($this->rowInPage, $page, $searchs, $sub);
                     // Nếu có data thì lưu link và Ma NPP vào seesion
                     if (isset($rsData['totalRow']) && $rsData['totalRow'] != 0) {
+                        $supplierTaxCode = $sub;
                         $this->processHasData($sub, $searchs['buyeridno']);
                         break;
                     }
@@ -255,6 +256,7 @@ class Lookupinvoice extends MX_Controller {
             $data->pagination = $links . $rsData['totalRow'];
             $data->totalrow = $rsData['totalRow'];
             $data->pos = (($page - 1) * $this->rowInPage) + 1;
+            $data->l = $supplierTaxCode;
             $content = $this->load->view('list', $data, true);
             $rs['totalRow'] = $rsData['totalRow'];
             $rs['from'] = $data->pos;
@@ -281,8 +283,12 @@ class Lookupinvoice extends MX_Controller {
         $ino = $this->input->post('ino');
         $itc = $this->input->post('itc');
         $itype = $this->input->post('itype');
+        $itl = $this->input->post('itl');
         if ($itype == "view") {
             $itype = "pdf";
+        }
+        if (!empty($itl)) {
+            $supplierTaxCode = $itl;
         }
         $rs = $this->getInvoiceCurl($itype, $supplierTaxCode, $ino, $itc);
         $rt = array("status" => "fail", "reason" => "curl fail");
@@ -312,7 +318,7 @@ class Lookupinvoice extends MX_Controller {
             'transactionUuid' => "test",
             'fileType' => strtoupper($fileType)
         );
-
+        //print_r($arr_post); die;
         $up = $this->checkAccount($this->supplierTaxCode);
         // Curl Post
         $curl = curl_init();
@@ -323,6 +329,7 @@ class Lookupinvoice extends MX_Controller {
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
             CURLOPT_TIMEOUT => 120,
+            CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
             CURLOPT_POSTFIELDS => json_encode($arr_post),

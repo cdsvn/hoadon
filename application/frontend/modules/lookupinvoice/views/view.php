@@ -250,13 +250,13 @@
     var buyerIdNo = '<?= $buyerIdNo; ?>';
     $(document).ready(function () {
         $(document.body).on('click', '.ipdf', function () {
-            getinvoice($(this).attr('iid'), $(this).attr('ino'), $(this).attr('itc'), 'pdf');
+            getinvoice($(this).attr('iid'), $(this).attr('ino'), $(this).attr('itc'), $(this).attr('itl'), 'pdf');
         });
         $(document.body).on('click', '.izip', function () {
-            getinvoice($(this).attr('iid'), $(this).attr('ino'), $(this).attr('itc'), 'zip');
+            getinvoice($(this).attr('iid'), $(this).attr('ino'), $(this).attr('itc'), $(this).attr('itl'), 'zip');
         });
         $(document.body).on('click', '.viewpdf', function () {
-            getinvoice($(this).attr('iid'), $(this).attr('ino'), $(this).attr('itc'), 'view');
+            getinvoice($(this).attr('iid'), $(this).attr('ino'), $(this).attr('itc'), $(this).attr('itl'), 'view');
         });
         $(document.body).on('change', '#srip', function () {
             var rip = $(this).val();
@@ -349,7 +349,7 @@
 
         });
     }
-    function getinvoice(iid, ino, itc, itype) {
+    function getinvoice(iid, ino, itc, itl, itype) {
         $.ajax({
             type: "POST",
             url: '<?= site_url('lookupinvoice/getinvoice') ?>',
@@ -357,7 +357,8 @@
                 'iid': iid,
                 'ino': ino,
                 'itc': itc,
-                'itype': itype
+                'itype': itype,
+                'itl': itl
             }
         }).done(function (r) {
             console.log(r);

@@ -13,11 +13,11 @@ if ($totalrow === 0) {
         <tr>
             <td class="text-center"><?= $pos++; ?></td>    
             <td class="text-center">
-                <span title="Download file pdf" class="ipdf" itc="<?= $iv['templateCode']; ?>" ino="<?= $iv['invoiceNo']; ?>" iid="<?= $iv['invoiceId']; ?>">pdf</span> | 
-                <span title="Download file zip" class="izip" itc="<?= $iv['templateCode']; ?>" ino="<?= $iv['invoiceNo']; ?>" iid="<?= $iv['invoiceId']; ?>">zip</span>
+                <span title="Download file pdf" class="ipdf" itl="<?=$l?>" itc="<?= $iv['templateCode']; ?>" ino="<?= $iv['invoiceNo']; ?>" iid="<?= $iv['invoiceId']; ?>">pdf</span> | 
+                <span title="Download file zip" class="izip" itl="<?=$l?>" itc="<?= $iv['templateCode']; ?>" ino="<?= $iv['invoiceNo']; ?>" iid="<?= $iv['invoiceId']; ?>">zip</span>
             </td>
             <td class="text-center">
-                <span title="Xem file pdf" class="viewpdf" itc="<?= $iv['templateCode']; ?>" ino="<?= $iv['invoiceNo']; ?>" iid="<?= $iv['invoiceId']; ?>"><i class="fa fa-eye" aria-hidden="true"></i></span>
+                <span title="Xem file pdf" class="viewpdf" itl="<?=$l?>" itc="<?= $iv['templateCode']; ?>" ino="<?= $iv['invoiceNo']; ?>" iid="<?= $iv['invoiceId']; ?>"><i class="fa fa-eye" aria-hidden="true"></i></span>
             </td>
             <td><?= $iv['templateCode']; ?></td>
             <td><?= $iv['invoiceNo']; ?></td>
