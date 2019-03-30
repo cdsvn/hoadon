@@ -201,7 +201,7 @@ class Lookupinvoice extends MX_Controller {
         fwrite($logfile, "\r\n" . $str);
         fclose($logfile);
     }
-
+    /*
     function processHasData($subBIN, $buyeridno) {
         // Nếu đã có bảng map Mã NPP với link trong session thì lấy ra, chưa thì khởi tạo
         if ($this->session->has_userdata('mapBIN')) {
@@ -212,7 +212,7 @@ class Lookupinvoice extends MX_Controller {
         $arr[$buyeridno] = $subBIN;
         $this->session->set_userdata('mapBIN', $arr);
     }
-
+    */
     function checkLinkExistData($buyeridno) {
         $subBIN = '';
         if ($this->session->has_userdata('mapBIN')) {
@@ -232,6 +232,7 @@ class Lookupinvoice extends MX_Controller {
         $supplierTaxCode = $this->checkLinkExistData($searchs['buyeridno']);
         // Gọi hàm lấy data với link supplierTaxCode bên trên
         $rsData = $this->getListInvoice($this->rowInPage, $page, $searchs, $supplierTaxCode);
+        /*
         if (isset($rsData['totalRow']) && $rsData['totalRow'] == 0) {
             // Lấy danh sách link con là 3 index trong config
             $arrBIN = $this->config->item('infoByerIdNo');
@@ -255,6 +256,7 @@ class Lookupinvoice extends MX_Controller {
                 $this->processHasData($supplierTaxCode, $searchs['buyeridno']);
             }
         }
+         */
         // Có kết quả trả về
         if (is_array($rsData) && empty($rsData['errorCode'])) {
             $limit = $this->rowInPage;
