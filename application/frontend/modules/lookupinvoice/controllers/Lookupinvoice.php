@@ -94,7 +94,8 @@ class Lookupinvoice extends MX_Controller {
             'startDate' => '2017-12-12',
             'endDate' => '2017-12-31',
             'rowPerPage' => $rowPerPage,
-            'pageNum' => $pageNum
+            'pageNum' => $pageNum,
+            'getAll' => true
         );
 
         if (!empty($searchs['invoiceno'])) {
