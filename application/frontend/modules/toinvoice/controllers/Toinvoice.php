@@ -28,6 +28,37 @@ class Toinvoice extends MX_Controller {
         $this->site->render();
     }
 
+    function createParams($data) {
+        $path = FCPATH . "files" . DIRECTORY_SEPARATOR . "toinvoice" . DIRECTORY_SEPARATOR . 'template.txt';
+        $org = json_decode(file_get_contents($path), true);
+        // Reset 1 so thong tin
+        $org['itemInfo'] = array();
+        foreach ($data['body'] as $item) {
+            $tmp = array(
+                "lineNumber" => $item['stt'],
+                "itemCode" => "",
+                "itemName" => $item['ten_hang_hoa'],
+                "unitName" => $item['don_vi_tinh'],
+                "unitPrice" => $item['don_gia'],
+                "quantity"  => $item['so_luong'],
+                "itemTotalAmountWithoutTax"  => 0.0,
+                "taxPercentage" => "10",
+                "taxAmount" => "94455.000000",
+                "discount" => 0,
+                "itemDiscount" => 0
+            );
+            array_push($org['itemInfo'], $tmp);
+        }
+        $org['generalInvoiceInfo']['templateCode'] = '01GTKT0/695';
+        $org['generalInvoiceInfo']['invoiceSeries'] = 'PN/19E';
+        $org['generalInvoiceInfo']['invoiceIssuedDate'] = "2019-05-02T23:36:00+07:00";
+        //echo '<pre>'; print_r($data['top']);die;
+        $org['sellerInfo']['sellerLegalName'] = $data['top']['ten_cong_ty'];
+        $org['sellerInfo']['sellerTaxCode'] = $data['top']['ma_so_thue'];
+        $org['sellerInfo']['sellerAddressLine'] = $data['top']['dia_chi'];
+        return $org;
+    }
+
     function parseExcel($file) {
         // Khởi tạo biến
         $data = new stdClass();
@@ -94,9 +125,7 @@ class Toinvoice extends MX_Controller {
         $info['body'] = $info_body;
         $info['bottom'] = $info_bottom;
         $info['note'] = $luu_y;
-        $data->sheetArr = $sheetArr;
-        $data->info = $info;
-        return $data;
+        return $info;
     }
 
     public function save() {
@@ -122,8 +151,11 @@ class Toinvoice extends MX_Controller {
                 $import_xls_file = 0;
             }
             $data = $this->parseExcel($path . $import_xls_file);
+            $params = $this->createParams($data);
+            echo '<pre>'; print_r(json_encode($params)); die;
+            $rt = $this->pushInfoCreateInvoice($params);
             echo '<pre>';
-            print_r($data->info);
+            print_r($rt);
             die;
         }
     }
@@ -140,18 +172,18 @@ class Toinvoice extends MX_Controller {
         return $base64;
     }
 
-    private function pushInfoCreateInvoice() {
-        // Initialize params
-        $arr_post = array(
-            
-        );
+    private function pushInfoCreateInvoice($params) {
+        echo '<pre>';
+        print_r($params);
+        die;
         // Get base64 encode
-        $up = $this->checkAccount();
+        // $up = $this->checkAccount();
+        $up =  base64_encode('0100109106-215:111111a@A');
         // Curl Post
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_PORT => $this->pport,
-            CURLOPT_URL => $this->purl . "/InvoiceAPI/InvoiceUtilsWS/getInvoiceRepresentationFile",
+            CURLOPT_URL => "https://demo-sinvoice.viettel.vn:8443/InvoiceAPI/InvoiceWS/createInvoice/0100109106-215",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
@@ -159,7 +191,7 @@ class Toinvoice extends MX_Controller {
             CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => json_encode($arr_post),
+            CURLOPT_POSTFIELDS => json_encode($params),
             CURLOPT_HTTPHEADER => array(
                 "accept: application/json",
                 "authorization: Basic $up",

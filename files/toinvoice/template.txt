@@ -1,0 +1,233 @@
+{
+
+  "generalInvoiceInfo": {
+
+    "invoiceType": "01GTKT",
+
+    "templateCode": "01GTKT0/001",
+
+    "invoiceSeries": "AA/18E",
+    
+    "transactionUuid": "",
+
+    "currencyCode": "VND",
+
+    "adjustmentType": "1",
+
+   "invoiceIssuedDate":"2019-02-25T23:36:00+07:00",
+
+    "paymentStatus": true,
+
+    "paymentType": "TM/CK",
+
+    "paymentTypeName": "TM/CK",
+
+    "paymentStatus":true,
+
+    "cusGetInvoiceRight": true,
+
+    "buyerIdNo": "20181804166001480",
+
+    "buyerIdType": "1",
+
+    "userName": "tuannm"
+
+  },
+
+  "buyerInfo": {
+
+    "buyerName": "Người mua không lấy hoá đơn",
+
+    "buyerLegalName": "",
+
+    "buyerTaxCode": "",
+
+    "buyerAddressLine": "",
+
+    "buyerPhoneNumber": "",
+
+    "buyerEmail": "",
+
+    "buyerIdNo": "WALK-IN",
+
+    "buyerIdType": "1"
+
+  },
+
+  "sellerInfo": {
+
+    "sellerLegalName": "CÔNG TY CP MAISON RETAIL MANAGEMENT INTERNATIONAL",
+
+    "sellerTaxCode": "0313175103",
+
+    "sellerAddressLine": "L19-07-09- Tầng 19, Tòa nhà Vincom Đồng Khởi, 72 Lê Thánh Tôn, P.Bến Nghé, Quận 1, Tp.HCM"
+
+  },
+
+  "extAttribute": [],
+
+  "payments": [
+
+    {
+
+      "paymentMethodName": "TM/CK"
+
+    }
+
+  ],
+
+  "deliveryInfo": {},
+
+  "itemInfo": [
+
+    {
+
+      "lineNumber": "3",
+
+      "itemCode": "",
+
+      "itemName": "Điều chỉnh giảm cho hóa đơn số AA/18E0000137 Ngày 2019022118",
+
+      "unitName": "",
+
+      "unitPrice": 0.0,
+
+      "quantity": 0.0,
+
+      "itemTotalAmountWithoutTax": 0.0,
+
+      "taxPercentage": "10",
+
+      "taxAmount": "94455.000000",
+
+      "discount": 0,
+
+      "itemDiscount": 0
+
+    },
+
+    {
+
+      "lineNumber": "1",
+
+      "itemCode": "26K32NMUS",
+
+      "itemName": "VÁY, 6, 061 - 26K32NMUS",
+
+      "unitName": "Cái",
+
+      "unitPrice": 944545.0,
+
+      "quantity": 1.0,
+
+      "itemTotalAmountWithoutTax": 944545.0,
+
+      "taxPercentage": "10",
+
+      "taxAmount": "94455.000000",
+
+      "discount": 0,
+
+      "itemDiscount": 0
+
+    }
+
+  ],
+
+  "discountItemInfo": [],
+
+  "metadata": [],
+
+  "meterReading": [
+
+    {
+
+      "previousIndex": "5454",
+
+      "currentIndex": "244",
+
+      "factor": "244",
+
+      "amount": "2"
+
+    },
+
+    {
+
+      "previousIndex": "5454",
+
+      "currentIndex": "244",
+
+      "factor": "244",
+
+      "amount": "2"
+
+    }
+
+  ],
+
+  "summarizeInfo": {
+
+    "sumOfTotalLineAmountWithoutTax": 944545.0,
+
+    "totalAmountWithoutTax": 944545.0,
+
+    "totalTaxAmount": 94455.0,
+
+    "totalAmountWithTax": "1039000",
+
+    "discountAmount": 0.0,
+
+    "settlementDiscountAmount": 0.0,
+
+    "taxPercentage": 10.0
+
+  },
+
+  "taxBreakdowns": [
+
+    {
+
+      "taxPercentage": 10.0,
+
+      "taxableAmount": 944545.0,
+
+      "taxAmount": 94455.0
+
+    }
+
+  ],
+  "metadata": [
+    {
+      "invoiceCustomFieldId": 82,
+      "keyTag": "receiptNo",
+      "numberValue": "1514019933737",
+      "valueType": "number",
+      "keyLabel": "Số phiếu thu"
+    },
+    {
+      "invoiceCustomFieldId": 83,
+      "keyTag": "legalName",
+      "stringValue": "HCM",
+      "valueType": "text",
+      "keyLabel": "Nơi xuất"
+    },
+    {
+      "invoiceCustomFieldId": 84,
+      "keyTag": "taxCode",
+      "stringValue": "0313175103-001",
+      "valueType": "text",
+      "keyLabel": "Mã số thuế"
+    },
+    {
+      "invoiceCustomFieldId": 85,
+     "keyTag": "addressLine",
+      "stringValue": "HCM",
+      "valueType": "text",
+      "keyLabel": "Địa chỉ"
+    }
+  ]
+
+  
+
+}
